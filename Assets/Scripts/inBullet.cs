@@ -35,7 +35,7 @@ public class inBullet : MonoBehaviour {
     }
     void BulletPlace()
     {
-        bullet.transform.position = new Vector3(-0.16f, -1.55f, 0);
+        bullet.transform.position = new Vector3(-0.31f,3.35f, 0);
         bullet.SetActive(true);
         Invoke("BulletPlace", 3f);
     }
