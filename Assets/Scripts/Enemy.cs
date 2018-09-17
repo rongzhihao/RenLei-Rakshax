@@ -35,8 +35,16 @@ public class Enemy : Charactor {
 
 	}
 
-	// Use this for initialization
-	public override void Start () {
+    public override bool IsDead
+    {
+        get
+        {
+            return health <= 0;
+        }
+    }
+
+    // Use this for initialization
+    public override void Start () {
 		
 		base.Start();
 		ChangeState(new IdleState());
@@ -44,7 +52,15 @@ public class Enemy : Charactor {
 	
 	// Update is called once per frame
 	void Update () {
-		currentState.Execute();
+		if(!IsDead)
+		{
+			if(!TakingDamage)
+			{
+				currentState.Execute();
+			}
+			
+		}
+		
 		LookAtTarget();
 	}
 
@@ -69,8 +85,9 @@ public class Enemy : Charactor {
 	}
 
 	
-	void OnTriggerEnter2D(Collider2D other)
+	public override void OnTriggerEnter2D(Collider2D other)
 	{
+		base.OnTriggerEnter2D(other);
 		currentState.OnTriggerEnter(other);
 
 	}
@@ -85,4 +102,21 @@ public class Enemy : Charactor {
 			}
 		}
 	}
+
+    public override IEnumerator TakeDamage()
+    {
+        health -= 10;
+
+		if(!IsDead)
+		{
+			MyAnimator.SetTrigger("damage");
+		}
+		else
+		{
+			MyAnimator.SetTrigger("dead");
+			yield return null;
+		}
+    }
+
+
 }

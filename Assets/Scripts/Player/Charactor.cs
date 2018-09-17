@@ -10,11 +10,18 @@ public abstract class Charactor : MonoBehaviour {
 	[SerializeField]
 	protected GameObject bulletPrefab;
 
+	[SerializeField]
+	protected int health;
+
+	public abstract bool IsDead{get; }
 	
+	[SerializeField]
+	private EdgeCollider2D handCollider;
 
 	[SerializeField]
 	protected float jumpFrouce = 500f;
 
+	public bool TakingDamage{get; set;}
 	public bool Attack {get; set;}
 
 	public bool Jump {get; set;}
@@ -54,5 +61,20 @@ public abstract class Charactor : MonoBehaviour {
     
 	public void ShortAttack(){
 		MyAnimator.SetTrigger("attack");
+	}
+
+	public abstract IEnumerator TakeDamage();
+
+	public virtual void OnTriggerEnter2D(Collider2D other)
+	{
+		if(other.tag == "FireBall")
+		{
+			StartCoroutine(TakeDamage());
+		}
+	}
+
+	public void MeleeAttack()
+	{
+		handCollider.enabled = !handCollider.enabled;
 	}
 }

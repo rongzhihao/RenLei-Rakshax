@@ -36,8 +36,15 @@ public class characterController : Charactor {
 
 	public bool OnGround {get; set;}
 
+    public override bool IsDead
+    {
+        get
+        {
+            return health <= 0;
+        }
+    }
 
-	public override void Start () {
+    public override void Start () {
 		base.Start();
 		MyRigibody = GetComponent<Rigidbody2D>();
 		
@@ -150,4 +157,9 @@ public class characterController : Charactor {
 			MyAnimator.SetLayerWeight(1,0);
 		}
 	}
+
+    public override IEnumerator TakeDamage()
+    {
+        yield return null;
+    }
 }
