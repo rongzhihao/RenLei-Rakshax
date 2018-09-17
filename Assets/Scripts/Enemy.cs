@@ -42,7 +42,7 @@ public class Enemy : Charactor {
 		ChangeState(new IdleState());
 	}
 	
-	// Update is called once per frame
+	// Update is called once per frame 
 	void Update () {
 		currentState.Execute();
 		LookAtTarget();
