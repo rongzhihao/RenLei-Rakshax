@@ -122,12 +122,12 @@ GameObject:
   m_Component:
   - component: {fileID: 31670894}
   - component: {fileID: 31670893}
+  - component: {fileID: 31670895}
+  - component: {fileID: 31670896}
   - component: {fileID: 31670892}
   - component: {fileID: 31670891}
   - component: {fileID: 31670890}
   - component: {fileID: 31670889}
-  - component: {fileID: 31670895}
-  - component: {fileID: 31670896}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
@@ -190,12 +190,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 31670895}
-  moveSpeed: 5
-  flySpeed: 75
+  moveSpeed: 8
+  flySpeed: 30
+  jumpSpeed: 19
+  flyKey: f
+  jumpKey: w
+  pickupKey: k
   sr: {fileID: 31670893}
   Ground:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 256
 --- !u!212 &31670893
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -269,12 +273,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &31670896
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -409,7 +413,7 @@ GameObject:
   - component: {fileID: 307025798}
   - component: {fileID: 307025797}
   - component: {fileID: 307025796}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Jump1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +588,7 @@ GameObject:
   - component: {fileID: 503623306}
   - component: {fileID: 503623305}
   - component: {fileID: 503623304}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Final level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -861,7 +865,7 @@ GameObject:
   - component: {fileID: 1251354892}
   - component: {fileID: 1251354891}
   - component: {fileID: 1251354890}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Jump2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -991,7 +995,7 @@ GameObject:
   - component: {fileID: 1625461864}
   - component: {fileID: 1625461863}
   - component: {fileID: 1625461862}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: level1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

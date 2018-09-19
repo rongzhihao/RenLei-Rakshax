@@ -9,13 +9,19 @@ public class Movement2 : MonoBehaviour {
     public Rigidbody2D rb;
     public float moveSpeed = 5f;
     public float flySpeed = 5f;
+    public float jumpSpeed = 5f;
+    //public string leftMoveKey = "a";
+    //public string rightMoveKey = "d";
+    public string flyKey = "f";
+    public string jumpKey = "w";
+    public string pickupKey = "k";
     public SpriteRenderer sr; //sprite renderer in player
   //  public Animator anim;
     public LayerMask Ground;
     public Func myfunc;
 	// Use this for initialization
 	void Start () {
-		
+        myfunc = new Func();
 	}
 	
 	// Update is called once per frame
@@ -23,9 +29,10 @@ public class Movement2 : MonoBehaviour {
         if (Defense.CanMove == true)
         {
             move();
-            fly("w");
+            fly(flyKey);
+            jump(jumpKey);
         }
-        GameObject item = pickup("k");
+        GameObject item = pickup(pickupKey);
         if (item != null)
         {
             Debug.Log(333);
@@ -69,6 +76,7 @@ public class Movement2 : MonoBehaviour {
     void move()
     {
         // set animation
+    
         float move = Input.GetAxis("Horizontal");
        // anim.SetFloat("Speed", Mathf.Abs(move));
 
@@ -83,17 +91,43 @@ public class Movement2 : MonoBehaviour {
         }
         rb.velocity = new Vector2(move * moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
     }
+    //void move2()//using Key a and Key d
+    //{
+    //    if (Input.GetKey(leftMoveKey))
+    //    {
+    //        sr.flipX = true;
+    //        rb.velocity = new Vector2(-moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+    //    }
+    //    else if(Input.GetKey(rightMoveKey))
+    //    {
+    //        sr.flipX = true;
+    //        rb.velocity = new Vector2(moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+    //    }
+    //}
+    void jump(string jumpKey)
+    {
+        if (myfunc.isOnGround(transform, Ground))
+        {
+            if (Input.GetKey(jumpKey))
+            {
+                //set animation
+                // anim.SetBool("isJumping", true);
+                rb.AddForce(new Vector2(0, jumpSpeed*20), ForceMode2D.Force);
+                
+            }
+        }
+    }
     /*
      * param:(string) key for flying
      */ 
     void fly(string flyKey)
     {
-        
+
         //set movement
         if (Input.GetKey(flyKey))
         {
             //set animation
-          // anim.SetBool("isJumping", true);
+            // anim.SetBool("isJumping", true);
             rb.AddForce(new Vector2(0, flySpeed), ForceMode2D.Force);
         }
         //if (myfunc.isOnGround(transform, Ground))

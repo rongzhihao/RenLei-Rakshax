@@ -39,7 +39,7 @@ public class Func
 
     public bool isOnGround(Transform t, LayerMask Ground)
     {
-        RaycastHit2D ray = Physics2D.Raycast(t.position, new Vector2(0, -1), 1.0f, Ground);
+        RaycastHit2D ray = Physics2D.Raycast(t.position, new Vector2(0, -1), 0.8f, Ground);
         if (ray.collider != null)
         {
             return true;
