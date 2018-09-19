@@ -17,7 +17,6 @@ public class plMove : Photon.MonoBehaviour {
 	public GameObject plCam;
 
 
-
 	// Use this for initialization
 	void Start () {	
 	}
@@ -25,7 +24,8 @@ public class plMove : Photon.MonoBehaviour {
 	private void Awake(){
 		if(!devTestng && photonView.isMine){
 			//sceneCam = GameObject.Find("Main Camera");
-			//sceneCam.SetActive(false);
+			GameObject.Find("Main Camera").SetActive(false);
+			//Debug.Log(sceneCam);
 			plCam.SetActive(true);
 		}
 	}
@@ -51,7 +51,7 @@ public class plMove : Photon.MonoBehaviour {
 		transform.position = Vector3.Lerp(transform.position, selfPos, Time.deltaTime * 8);
 	}
 
-	private void OnPhotoSerializeView(PhotonStream stream, PhotonMessageInfo info){
+	private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
 		if(stream.isWriting){
 			stream.SendNext(transform.position);
 		}else{
