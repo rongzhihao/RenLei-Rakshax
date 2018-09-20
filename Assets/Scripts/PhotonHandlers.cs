@@ -12,8 +12,8 @@ public class PhotonHandlers : MonoBehaviour {
 	private void Awake(){
 		
 		DontDestroyOnLoad(this.transform);
-		PhotonNetwork.sendRate = 30;
-		PhotonNetwork.sendRateOnSerialize = 20;
+		PhotonNetwork.sendRate = 280;
+		PhotonNetwork.sendRateOnSerialize = 250;
 		SceneManager.sceneLoaded += OnSceneFinishedLoading;
 	}
 

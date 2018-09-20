@@ -106,18 +106,17 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void smoothNetMovement(){
-		//transform.position = Vector3.Lerp(transform.position, selfPos, Time.deltaTime * 8);
+		transform.position = Vector3.Lerp(transform.position, selfPos, Time.deltaTime * 8);
 	}
 
 	private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
 		if(stream.isWriting){
-			//stream.SendNext(transform.position);
+			stream.SendNext(transform.position);
 			stream.SendNext(health);
-			//stream.SendNext(shouldShoot);
+			
 		}else{
-			//selfPos = (Vector3)stream.ReceiveNext();
+			selfPos = (Vector3)stream.ReceiveNext();
 			this.health = (float)stream.ReceiveNext();
-			//this.shouldShoot = (bool)
 		}
 	}
 
