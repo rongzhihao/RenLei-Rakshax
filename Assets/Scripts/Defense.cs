@@ -8,13 +8,15 @@ public class Defense : MonoBehaviour {
     public GameObject shelter;
     public GameObject person;
     public static bool CanMove = true;
+    public string defenseKey = "z";
+    public float shelterTime = 2f;
 	void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(defenseKey))
         {
           
             
@@ -24,7 +26,7 @@ public class Defense : MonoBehaviour {
             float z = person.transform.localPosition.z;
             shelter.transform.localPosition = new Vector3(x, y, z);
             CanMove = false;
-            Invoke("ShelterDisappear", 2f);
+            Invoke("ShelterDisappear", shelterTime);
         }
     }
     void ShelterDisappear()

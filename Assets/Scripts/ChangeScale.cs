@@ -11,37 +11,39 @@ public class ChangeScale : MonoBehaviour {
     public bool isSmall = true;
     public bool Bigging = false;
     public bool Smalling = false;
-
+    public string bigKey = "b";
+    public string smallKey = "v";
+    public float bigOrSmallTime = 3f;
 	void Start () {
        
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.B) && isBig && !Smalling) 
+        if (Input.GetKeyDown(bigKey) && isBig && !Smalling) 
         {
             person.transform.localScale = new Vector3(2f, 2f, 2f);
             float x = person.transform.localPosition.x;
             float y = person.transform.localPosition.y;
             float z = person.transform.localPosition.z;
-            person.transform.position = new Vector3(x, y + 2, z);
+            person.transform.localPosition = new Vector3(x, y + 2, z);
             bullet.transform.localScale = new Vector3(2f, 2f, 2f);
             //isBig = false;
             Bigging = true;
-            Invoke("BigEnd", 3f);
+            Invoke("BigEnd", bigOrSmallTime);
 
         }
-        if (Input.GetKeyDown(KeyCode.V) && isSmall && !Bigging)
+        if (Input.GetKeyDown(smallKey) && isSmall && !Bigging)
         {
             person.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             float x = person.transform.localPosition.x;
             float y = person.transform.localPosition.y;
             float z = person.transform.localPosition.z;
-            person.transform.position = new Vector3(x, y -1, z);
+            person.transform.localPosition = new Vector3(x, y -1, z);
             bullet.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             // isSmall = false;
             Smalling = true;
-            Invoke("SmallEnd", 3f);
+            Invoke("SmallEnd", bigOrSmallTime);
         }
       
     }
@@ -51,7 +53,7 @@ public class ChangeScale : MonoBehaviour {
         float x = person.transform.localPosition.x;
         float y = person.transform.localPosition.y;
         float z = person.transform.localPosition.z;
-        person.transform.position = new Vector3(x, y - 2, z);
+        person.transform.localPosition = new Vector3(x, y - 2, z);
         bullet.transform.localScale = new Vector3(1f, 1f, 1f);
         Bigging = false;
     }
@@ -61,7 +63,7 @@ public class ChangeScale : MonoBehaviour {
         float x = person.transform.localPosition.x;
         float y = person.transform.localPosition.y;
         float z = person.transform.localPosition.z;
-        person.transform.position = new Vector3(x, y +1, z);
+        person.transform.localPosition = new Vector3(x, y +1, z);
         bullet.transform.localScale = new Vector3(1f, 1f, 1f);
         Smalling = false;
     }
