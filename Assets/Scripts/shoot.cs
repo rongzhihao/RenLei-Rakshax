@@ -25,14 +25,14 @@ public class shoot : MonoBehaviour {
             if (person.GetComponent<SpriteRenderer>().flipX)
             {
                 left = true;
-                bullet.transform.position = new Vector3(x - 2, y, z);
+                bullet.transform.localPosition = new Vector3(x - 2, y, z);
                 bullet.SetActive(true);
                 bullet.GetComponent<SpriteRenderer>().flipX = false;
             }
             else
             {
                 left = false;
-                bullet.transform.position = new Vector3(x + 2, y, z);
+                bullet.transform.localPosition = new Vector3(x + 2, y, z);
                 bullet.SetActive(true);
                 bullet.GetComponent<SpriteRenderer>().flipX = true;
             }
