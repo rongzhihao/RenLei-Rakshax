@@ -21,8 +21,8 @@ public class Defense : MonoBehaviour {
             shelter.SetActive(true);
             float x = person.transform.localPosition.x;
             float y = person.transform.localPosition.y;
-            float z = shelter.transform.localPosition.z;
-            shelter.transform.position = new Vector3(x, y, z);
+            float z = person.transform.localPosition.z;
+            shelter.transform.localPosition = new Vector3(x, y, z);
             CanMove = false;
             Invoke("ShelterDisappear", 2f);
         }
