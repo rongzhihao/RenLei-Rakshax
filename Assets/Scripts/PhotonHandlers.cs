@@ -27,7 +27,7 @@ public class PhotonHandlers : MonoBehaviour {
 		PhotonNetwork.JoinOrCreateRoom(photonB.joinRoomInput.text, roomOptions, TypedLobby.Default);
 	}
 	public void moveScene(){
-		PhotonNetwork.LoadLevel("Phototype");
+		PhotonNetwork.LoadLevel("Prototype");
 	}
 
 	private void OnJoinedRoom(){
@@ -36,7 +36,7 @@ public class PhotonHandlers : MonoBehaviour {
 	}
 
 	private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode){
-		if(scene.name == "Phototype"){
+		if(scene.name == "Prototype"){
 			spawnPlayer();
 		}
 	}
