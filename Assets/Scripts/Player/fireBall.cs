@@ -21,7 +21,7 @@ public class fireBall : MonoBehaviour {
 
 	void OnBecameInvisible()
 	{
-		Destroy(gameObject);
+		PhotonNetwork.Destroy(gameObject);
 	}
 
 	public void initialize(Vector2 direction)

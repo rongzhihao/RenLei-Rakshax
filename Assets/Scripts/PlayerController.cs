@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		HanldeInput();
+		IsDead();
 	}
 	void FixedUpdate () {
 		if(!devTestng) {
@@ -105,15 +106,18 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void smoothNetMovement(){
-		transform.position = Vector3.Lerp(transform.position, selfPos, Time.deltaTime * 8);
+		//transform.position = Vector3.Lerp(transform.position, selfPos, Time.deltaTime * 8);
 	}
 
 	private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
 		if(stream.isWriting){
-			stream.SendNext(transform.position);
-			//stream.SendNext(gameObject.GetComponent<MeshRenderer>().material.color);
+			//stream.SendNext(transform.position);
+			stream.SendNext(health);
+			//stream.SendNext(shouldShoot);
 		}else{
-			selfPos = (Vector3)stream.ReceiveNext();
+			//selfPos = (Vector3)stream.ReceiveNext();
+			this.health = (float)stream.ReceiveNext();
+			//this.shouldShoot = (bool)
 		}
 	}
 
@@ -149,12 +153,12 @@ public class PlayerController : MonoBehaviour {
 
 		if(facingRight)
 		{
-			GameObject bullet = (GameObject)Instantiate(bulletPrefab, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 180)));
+			GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 180)), 0);
 			bullet.GetComponent<fireBall>().initialize(Vector2.right);
 		}
 		else
 		{
-			GameObject bullet = (GameObject)Instantiate(bulletPrefab, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 0)));
+			GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 0)), 0);
 			bullet.GetComponent<fireBall>().initialize(Vector2.left);
 		}
 	}
@@ -171,12 +175,6 @@ public class PlayerController : MonoBehaviour {
 	private void TakeDamage()
     {
         health -= 10;
-
-		if(health <= 0)
-		{
-			photonView.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-			moveSpeed = moveSpeed * 1.5f;
-		}
     }
 
 	public void OnTriggerEnter2D(Collider2D other)
@@ -184,6 +182,15 @@ public class PlayerController : MonoBehaviour {
 		if(other.tag == "Bullet")
 		{
 			TakeDamage();
+		}
+	}
+
+	private void IsDead()
+	{
+		if(health <= 0)
+		{
+			photonView.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+			//moveSpeed = moveSpeed * 1.1f;
 		}
 	}
 }
