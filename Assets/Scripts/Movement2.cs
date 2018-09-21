@@ -25,7 +25,7 @@ public class Movement2 : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
         if (Defense.CanMove == true)
         {
             move();
@@ -106,16 +106,18 @@ public class Movement2 : MonoBehaviour {
     //}
     void jump(string jumpKey)
     {
-        if (myfunc.isOnGround(transform, Ground))
+        if (Input.GetKey(jumpKey))
         {
-            if (Input.GetKey(jumpKey))
+            if (myfunc.isOnGround(transform, Ground))
             {
                 //set animation
                 // anim.SetBool("isJumping", true);
-                rb.AddForce(new Vector2(0, jumpSpeed*20), ForceMode2D.Force);
-                
+                rb.AddForce(new Vector2(0, jumpSpeed * 20), ForceMode2D.Force);
             }
+                
+
         }
+        
     }
     /*
      * param:(string) key for flying
@@ -194,7 +196,10 @@ public class Movement2 : MonoBehaviour {
 
                     item.SetParent(null);//drop
                     Debug.Log(123123);
-                    //item.gameObject.AddComponent<Rigidbody2D>();
+                    //if (myfunc.isOnGround(item, Ground))
+                    //{
+                    //    item.GetComponent<BoxCollider2D>().enabled = true;
+                    //}
                     //item.gameObject.GetComponent<Rigidbody2D>().bodyType=Rigidbody2D.
                     result = item.gameObject;
                 }

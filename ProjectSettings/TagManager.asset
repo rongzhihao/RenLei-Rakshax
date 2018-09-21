@@ -8,6 +8,7 @@ TagManager:
   - EnemyBall
   - FireBall
   - Bullet
+  - Items
   layers:
   - Default
   - TransparentFX

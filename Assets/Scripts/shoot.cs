@@ -10,6 +10,7 @@ public class shoot : MonoBehaviour {
     public static bool left = false;
     public static bool left2 = false;
     public static int hp = 2;
+    public static float hpbar = 10;
     void Start () {
 		
 	}
