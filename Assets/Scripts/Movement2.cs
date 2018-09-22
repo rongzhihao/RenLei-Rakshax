@@ -42,6 +42,10 @@ public class Movement2 : MonoBehaviour {
                 Destroy(item.GetComponent<Rigidbody2D>());
             }
         }
+        if (Input.GetKey("t"))
+        {
+            myfunc.test();
+        }
 
 
 

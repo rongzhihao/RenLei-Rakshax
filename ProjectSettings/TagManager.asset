@@ -9,6 +9,8 @@ TagManager:
   - FireBall
   - Bullet
   - Items
+  - Damage2
+  - Damage1
   layers:
   - Default
   - TransparentFX

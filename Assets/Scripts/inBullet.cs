@@ -7,7 +7,7 @@ public class inBullet : MonoBehaviour {
 
     public GameObject bullet;
     public GameObject hp1, hp2;
-    public Image healthbar;
+    //public Image HealthBar_Front;
     void Start()
     {
         
@@ -22,10 +22,11 @@ public class inBullet : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
-        
+
         // GameObject.Destroy(this.gameObject);
-        bullet.SetActive(false);
-        Debug.Log("Defense successfully!!!");
+        //bullet.SetActive(false);
+        //Debug.Log("Defense successfully!!!");
+        this.gameObject.SetActive(false);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -38,7 +39,7 @@ public class inBullet : MonoBehaviour {
         if (shoot.hp == 0)
             hp1.SetActive(false);
         shoot.hpbar--;
-        healthbar.fillAmount = shoot.hpbar / 10;
+        //HealthBar_Front.fillAmount = shoot.hpbar / 10;
     }
     void BulletPlace()
     {
