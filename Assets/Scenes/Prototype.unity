@@ -187,7 +187,7 @@ MonoBehaviour:
   defenseKey: z
   shelterTime: 2
   ShelterBar_Front: {fileID: 1656272093}
-  showShelterBar: 1
+  showShelterBar: 0
 --- !u!114 &31670892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,7 +341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fullHealthValue: 10
   HealthBar_Front: {fileID: 114589070}
-  showHealthBar: 1
+  showHealthBar: 0
 --- !u!1 &114589068
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,7 +1422,7 @@ GameObject:
   - component: {fileID: 701807016}
   - component: {fileID: 701807015}
   m_Layer: 5
-  m_Name: shelterBackground
+  m_Name: shelterBarBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2549,7 +2549,7 @@ GameObject:
   - component: {fileID: 2050574230}
   - component: {fileID: 2050574229}
   m_Layer: 5
-  m_Name: barBackground
+  m_Name: healthBarBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
