@@ -25,7 +25,7 @@ public class Hurt : MonoBehaviour {
         if (currentHealthValue <= 0)
         {
             //died
-
+            this.GetComponent<SpriteRenderer>().color = Color.green;
         }
 	}
     void OnTriggerEnter2D(Collider2D collider)
