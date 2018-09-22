@@ -11,6 +11,7 @@ public class Defense : MonoBehaviour {
     public string defenseKey = "z";
     public float shelterTime = 2f;
     public Image ShelterBar_Front;
+    public bool showShelterBar = true;
     float time;
     private Func myfunc;
     //private GameObject shelter;
@@ -22,13 +23,16 @@ public class Defense : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (shelter.activeSelf == false)
+        if (shelter.activeSelf == false && person.GetComponent<Rigidbody2D>().velocity.x==0 && person.GetComponent<Rigidbody2D>().velocity.y == 0)
         {
             if (Input.GetKeyDown(defenseKey))
             {
                 time = shelterTime;
-                ShelterBar_Front.transform.parent.gameObject.SetActive(true);
-                shelterBarController();
+                if (showShelterBar)
+                {
+                    ShelterBar_Front.transform.parent.gameObject.SetActive(true);
+                    shelterBarController();
+                }
                 float x = person.transform.localPosition.x;
                 float y = person.transform.localPosition.y;
                 float z = person.transform.localPosition.z;

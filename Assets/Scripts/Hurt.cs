@@ -11,8 +11,13 @@ public class Hurt : MonoBehaviour {
     public float fullHealthValue = 10;
     public Image HealthBar_Front;
     private float currentHealthValue;
-    
+    public bool showHealthBar = true;
+
     void Start () {
+        if (showHealthBar)
+        {
+            HealthBar_Front.transform.parent.gameObject.SetActive(true);
+        }
         currentHealthValue = fullHealthValue;
     }
 	
