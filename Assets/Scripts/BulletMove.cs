@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class BulletMove : MonoBehaviour
 {
-
+    /*
+     * Please put this weapon under tag "Damage2"
+     * 
+     */
     // Use this for initialization
-    public GameObject bullet;
+    //public GameObject bullet;
+    public float damage=2;
     void Start()
     {
 
@@ -15,19 +19,19 @@ public class BulletMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (shoot.left)
-        {
-            transform.Translate(Vector3.left * 5 * Time.deltaTime, Space.World);
-        }
-        else
-        {
-            transform.Translate(Vector3.right * 5 * Time.deltaTime, Space.World);
-        }
+        //if (shoot.left)
+        //{
+        //    transform.Translate(Vector3.left * 5 * Time.deltaTime, Space.World);
+        //}
+        //else
+        //{
+        //    transform.Translate(Vector3.right * 5 * Time.deltaTime, Space.World);
+        //}
         
     }
-  
-    private void OnTriggerEnter2D(Collider2D coll)
+
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        bullet.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 }
