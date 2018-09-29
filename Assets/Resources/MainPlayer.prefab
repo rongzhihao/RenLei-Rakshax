@@ -468,7 +468,7 @@ MonoBehaviour:
   health: 30
   poisonPrefab: {fileID: 1923386532864074, guid: d644b9add649f4440834eefce7e15d7f,
     type: 2}
-  antiDotePrefab: {fileID: 1991891887080278, guid: cef039587a2fe48bdb7c66568c8ee308,
+  antidotePrefab: {fileID: 1991891887080278, guid: cef039587a2fe48bdb7c66568c8ee308,
     type: 2}
 --- !u!114 &114871304756343960
 MonoBehaviour:
