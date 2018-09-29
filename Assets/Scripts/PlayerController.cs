@@ -29,7 +29,9 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField]
 	private LayerMask whatisGround;
 
-	private bool shouldShoot;
+	private bool shouldShootRed;
+
+	private bool shouldShootBlue;
 
 	private bool facingRight = true;
 
@@ -38,8 +40,13 @@ public class PlayerController : MonoBehaviour {
 	private bool onGround;
 
 	[SerializeField]
-	protected GameObject bulletPrefab;
-
+	protected GameObject poisonPrefab;
+	[SerializeField]
+	protected GameObject antidotePrefab;
+	private bool shouldSwitch = false;
+	private bool isRedCloth = true; 
+	private bool hasRedCloth = true;
+	private bool hasBlueCloth = true;
 
 	// Use this for initialization
 	void Start () {	
@@ -57,7 +64,7 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		HanldeInput();
-		IsDead();
+		//IsDead();
 	}
 	void FixedUpdate () {
 		if(!devTestng) {
@@ -76,15 +83,23 @@ public class PlayerController : MonoBehaviour {
 
 	private void HanldeInput()
 	{
-		if(Input.GetKeyDown(KeyCode.Q)){
-			//ShortAttack();
-		}
+		// if(Input.GetKeyDown(KeyCode.Q)){
+		// 	//ShortAttack();
+		// }
 		if(Input.GetKeyDown(KeyCode.Space)){
 			jump = true;
 		}
 
+		if(Input.GetKeyDown(KeyCode.Q)){
+			shouldShootRed = true;
+		}
+
 		if(Input.GetKeyDown(KeyCode.W)){
-			shouldShoot = true;
+			shouldShootBlue = true;
+		}
+
+		if(Input.GetKeyDown(KeyCode.E)){
+			shouldSwitch = true;
 		}
 	}
 
@@ -95,12 +110,28 @@ public class PlayerController : MonoBehaviour {
 		transform.position += move * moveSpeed * Time.deltaTime;
 		Flip(horizontal);
 		onGround = IsGrounded();
-		if(onGround && jump && myRigibody.velocity.y == 0){
+		if(onGround && jump && myRigibody.velocity.y == 0)
+		{
 			onGround = false;
 			myRigibody.AddForce(new Vector2(0, jumpForce));
 		}
-		if(shouldShoot){
-			LongAttack();
+		if(shouldShootRed || shouldShootBlue)
+		{
+			bool isPoison = shouldShootRed ? true : false;
+			ShootBullet(isPoison);
+		}
+		if(shouldSwitch)
+		{
+			if(hasRedCloth && !isRedCloth)
+			{
+				isRedCloth = !isRedCloth;
+				ChangeColor(isRedCloth);
+			}
+			else if( hasBlueCloth && isRedCloth)
+			{
+				isRedCloth = !isRedCloth;
+				ChangeColor(isRedCloth);
+			}
 		}
 
 	}
@@ -140,16 +171,20 @@ public class PlayerController : MonoBehaviour {
 
 	private void resetParameter() {
 		jump = false;
-		shouldShoot =false;
+		shouldShootRed = false;
+		shouldShootBlue = false;
+		shouldSwitch = false;
 
 	}
 
 
-	public void LongAttack(){
+	public void ShootBullet(bool isPoison){
 	
 		float offset = facingRight ? 1 : -1;
 		Vector3 bulletInitPlace = new Vector3(transform.position.x + offset, transform.position.y, transform.position.z);
-
+		Debug.Log("isPoison:"+isPoison);
+		GameObject bulletPrefab = isPoison ? poisonPrefab : antidotePrefab;
+		Debug.Log(bulletPrefab);
 		if(facingRight)
 		{
 			GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 180)), 0);
@@ -184,12 +219,22 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	private void IsDead()
-	{
-		if(health <= 0)
+	private void ChangeColor( bool isRedCloth){
+		if(isRedCloth)
 		{
 			photonView.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-			//moveSpeed = moveSpeed * 1.1f;
 		}
-	}
+		else
+		{
+			photonView.gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
+		}
+	} 
+	// private void IsDead()
+	// {
+	// 	if(health <= 0)
+	// 	{
+	// 		photonView.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+	// 		//moveSpeed = moveSpeed * 1.1f;
+	// 	}
+	// }
 }

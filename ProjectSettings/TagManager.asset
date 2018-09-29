@@ -11,6 +11,8 @@ TagManager:
   - Items
   - Damage2
   - Damage1
+  - poison
+  - antidote
   layers:
   - Default
   - TransparentFX
