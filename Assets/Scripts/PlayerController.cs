@@ -44,9 +44,8 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField]
 	protected GameObject antidotePrefab;
 	private bool shouldSwitch = false;
-	private bool isRedCloth = true; 
-	private bool hasRedCloth = true;
-	private bool hasBlueCloth = true;
+	private Color[] clothArray = {Color.red, Color.blue}; // poison and anitdote 
+	private int currentCloth = 0;
 
 	// Use this for initialization
 	void Start () {	
@@ -122,16 +121,7 @@ public class PlayerController : MonoBehaviour {
 		}
 		if(shouldSwitch)
 		{
-			if(hasRedCloth && !isRedCloth)
-			{
-				isRedCloth = !isRedCloth;
-				ChangeColor(isRedCloth);
-			}
-			else if( hasBlueCloth && isRedCloth)
-			{
-				isRedCloth = !isRedCloth;
-				ChangeColor(isRedCloth);
-			}
+			ChangeColor();
 		}
 
 	}
@@ -206,28 +196,27 @@ public class PlayerController : MonoBehaviour {
 		}
     }
 
-	private void TakeDamage()
+	private void TakeDamage(Color color)
     {
-        health -= 10;
+        clothArray[currentCloth] = color;
+		photonView.gameObject.GetComponent<MeshRenderer>().material.color = clothArray[currentCloth];
     }
 
 	public void OnTriggerEnter2D(Collider2D other)
 	{
-		if(other.tag == "Bullet")
+		if(other.tag == "antidote")
 		{
-			TakeDamage();
-		}
-	}
-
-	private void ChangeColor( bool isRedCloth){
-		if(isRedCloth)
-		{
-			photonView.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+			TakeDamage(Color.blue);
 		}
 		else
 		{
-			photonView.gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
+			TakeDamage(Color.red);
 		}
+	}
+
+	private void ChangeColor(){
+		currentCloth = (currentCloth + 1) % 2;
+		photonView.gameObject.GetComponent<MeshRenderer>().material.color = clothArray[currentCloth];
 	} 
 	// private void IsDead()
 	// {
