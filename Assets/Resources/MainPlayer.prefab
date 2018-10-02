@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 114255893892024712}
   - component: {fileID: 114565383085744442}
   - component: {fileID: 114874723701595992}
+  - component: {fileID: 114884825591505476}
   m_Layer: 0
   m_Name: MainPlayer
   m_TagString: Untagged
@@ -563,6 +564,18 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &114884825591505476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1741868193684240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 997a1e6cc4ed944478a60093549419a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUpKey: k
 --- !u!124 &124600559985439956
 Behaviour:
   m_ObjectHideFlags: 1
