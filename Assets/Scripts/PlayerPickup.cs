@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerPickup : MonoBehaviour {
     public string pickUpKey = "k";
-    private int[] blueBag = new int[2];
-    private int[] redBag = new int[2];
-    private int[] theOtherBag = new int[1];
+    private int[] blueBag = new int[2]; // white = 0, blue = 1
+    private int[] redBag = new int[2];// white = 0, red = 1
+    private int[] theOtherBag = new int[1];// blue = 1, red = 2
 
     // Use this for initialization
     void Start()
@@ -47,6 +47,18 @@ public class PlayerPickup : MonoBehaviour {
         }
         return false;
     }
+    public bool setFirstEmptySlotPositionToValueTwo(int[] array)
+    {
+        for (int i = 0; i < array.Length; i++)
+        {
+            if (array[i] == 0)
+            {
+                array[i] = 2;
+                return true;
+            }
+        }
+        return false;
+    }
     public void printArray(int[] array)
     {
         for (int i = 0; i < array.Length; i++)
@@ -76,7 +88,7 @@ public class PlayerPickup : MonoBehaviour {
                         {
                             if (theOtherBag[0] == 0)
                             {
-                                bool firstEmptySlotPos = setFirstEmptySlotPositionToValueOne(theOtherBag);
+                                bool firstEmptySlotPos = setFirstEmptySlotPositionToValueOne(theOtherBag);//blue
                                 if (firstEmptySlotPos == false)
                                 {
                                     Debug.Log("Error!");
@@ -102,7 +114,7 @@ public class PlayerPickup : MonoBehaviour {
                         {
                             if (theOtherBag[0] == 0)
                             {
-                                bool firstEmptySlotPos = setFirstEmptySlotPositionToValueOne(theOtherBag);
+                                bool firstEmptySlotPos = setFirstEmptySlotPositionToValueTwo(theOtherBag);//red
                                 if (firstEmptySlotPos == false)
                                 {
                                     Debug.Log("Error!");
@@ -138,6 +150,46 @@ public class PlayerPickup : MonoBehaviour {
             printArray(theOtherBag);
         }
 
+        syncBagsToImage();
+    }
 
+    void syncBagsToImage()
+    {
+        for(int i = 0; i < blueBag.Length; i++)
+        {
+            string name = "BlueSlot" + (i+1);
+            if (blueBag[i] == 1)
+            {
+                GameObject.Find(name).GetComponent<SpriteRenderer>().color = Color.blue;
+            }
+            else
+            {
+                GameObject.Find(name).GetComponent<SpriteRenderer>().color = Color.white;
+            }
+        }
+        for (int i = 0; i < redBag.Length; i++)
+        {
+            string name = "RedSlot" + (i + 1);
+            if (redBag[i] == 1)
+            {
+                GameObject.Find(name).GetComponent<SpriteRenderer>().color = Color.red;
+            }
+            else
+            {
+                GameObject.Find(name).GetComponent<SpriteRenderer>().color = Color.white;
+            }
+        }
+        if (theOtherBag[0] == 1)
+        {
+            GameObject.Find("RandomSlot").GetComponent<SpriteRenderer>().color = Color.blue;
+        }
+        else if(theOtherBag[0] == 2)
+        {
+            GameObject.Find("RandomSlot").GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        else
+        {
+            GameObject.Find("RandomSlot").GetComponent<SpriteRenderer>().color = Color.white;
+        }
     }
 }
