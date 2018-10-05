@@ -28,7 +28,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1134756648129120
 GameObject:
   m_ObjectHideFlags: 1
@@ -603,7 +603,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   devTestng: 0
   photonView: {fileID: 114255893892024712}
-  moveSpeed: 10
   jumpForce: 1500
   plName: {fileID: 114259055716808234}
   sceneCam: {fileID: 0}
