@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
 
 	public bool devTestng = false;
 	public PhotonView photonView;
-	public float moveSpeed = 100f;
+	public static float moveSpeed = 10f;
 	public float jumpForce = 800f;
 
 	private Vector3 selfPos;
