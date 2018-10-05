@@ -20,6 +20,7 @@ public class PhotonConnect : MonoBehaviour {
 		PhotonNetwork.JoinLobby(TypedLobby.Default);
 
 		Debug.Log("we are connected to master");
+     
 	}
 
 	private void OnJoinedLobby(){

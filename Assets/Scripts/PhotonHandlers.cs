@@ -27,8 +27,11 @@ public class PhotonHandlers : MonoBehaviour {
 		PhotonNetwork.JoinOrCreateRoom(photonB.joinRoomInput.text, roomOptions, TypedLobby.Default);
 	}
 	public void moveScene(){
+    
 		PhotonNetwork.LoadLevel("Prototype");
-	}
+    
+      
+    }
 
 	private void OnJoinedRoom(){
 		moveScene();

@@ -1763,6 +1763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   photonB: {fileID: 1312000968}
   mainPlayer: {fileID: 1741868193684240, guid: a7f254beaa74f4d8796f851718d649ec, type: 2}
+  jilu: {fileID: 1094034918710880, guid: 24db302c7c3e0794992b2b082cd6111f, type: 2}
 --- !u!4 &1825768062
 Transform:
   m_ObjectHideFlags: 0

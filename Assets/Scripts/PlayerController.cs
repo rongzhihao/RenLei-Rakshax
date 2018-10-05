@@ -50,7 +50,9 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {	
 		myRigibody = GetComponent<Rigidbody2D>();
-	}
+      
+       
+    }
 
 	private void Awake(){
 		if(!devTestng && photonView.isMine){
@@ -63,8 +65,9 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		HanldeInput();
-		//IsDead();
-	}
+        
+        //IsDead();
+    }
 	void FixedUpdate () {
 		if(!devTestng) {
 			if(photonView.isMine){
@@ -113,6 +116,7 @@ public class PlayerController : MonoBehaviour {
 		{
 			onGround = false;
 			myRigibody.AddForce(new Vector2(0, jumpForce));
+          
 		}
 		if(shouldShootRed || shouldShootBlue)
 		{
@@ -200,11 +204,34 @@ public class PlayerController : MonoBehaviour {
     {
         clothArray[currentCloth] = color;
 		photonView.gameObject.GetComponent<MeshRenderer>().material.color = clothArray[currentCloth];
+        //int playerID = PhotonNetwork.player.ID;
+        //Tab.clothOn[playerID - 1] = color;
+        int nowColor = PhotonNetwork.player.GetScore();
+        //Debug.Log("hit:" + PhotonNetwork.player.ID);
+        if (color == Color.red)
+        {
+            if (nowColor == 2)
+                PhotonNetwork.player.SetScore(0);
+            if (nowColor == 3)
+                PhotonNetwork.player.SetScore(1);
+        }
+        if (color == Color.blue)
+        {
+            if (nowColor == 1)
+                PhotonNetwork.player.SetScore(3);
+            if (nowColor == 0)
+                PhotonNetwork.player.SetScore(2);
+        }
+            
+       
     }
 
 	public void OnTriggerEnter2D(Collider2D other)
 	{
-		if(other.tag == "antidote")
+     
+        Debug.Log("sha:"+PhotonNetwork.player.ID);
+        
+        if (other.tag == "antidote")
 		{
 			TakeDamage(Color.blue);
 		}
@@ -213,10 +240,20 @@ public class PlayerController : MonoBehaviour {
 			TakeDamage(Color.red);
 		}
 	}
+   
 
 	private void ChangeColor(){
 		currentCloth = (currentCloth + 1) % 2;
 		photonView.gameObject.GetComponent<MeshRenderer>().material.color = clothArray[currentCloth];
+        if (PhotonNetwork.player.GetScore() == 1 || PhotonNetwork.player.GetScore() == 2)
+            PhotonNetwork.player.SetScore(3 - PhotonNetwork.player.GetScore());
+        /*
+        Color t = Color.white;
+        int playerID = PhotonNetwork.player.ID;
+        Debug.Log("id"+playerID);
+        t = Tab.clothOn[playerID - 1];
+        Tab.clothOn[playerID - 1] = Tab.clothOff[playerID - 1];
+        Tab.clothOff[playerID - 1] = t;*/
 	} 
 	// private void IsDead()
 	// {
