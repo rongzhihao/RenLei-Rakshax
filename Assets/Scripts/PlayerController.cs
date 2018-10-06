@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		HanldeInput();
-        
+        ResetLocation();
         //IsDead();
     }
 	void FixedUpdate () {
@@ -316,5 +316,12 @@ public class PlayerController : MonoBehaviour {
 	private void StartToRecovering () {
 		canMove = false;
 		InvokeRepeating("moveCount",2f,1f);
+	}
+
+	private void ResetLocation () {
+		if(transform.position.y < -10)
+		{
+			transform.position = new Vector3(0, 5, 0);
+		}
 	}
 }

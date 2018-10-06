@@ -11,7 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/gameConnect.unity
     guid: 56bfd3e1595a642aa8912e2710c26629
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Prototype.unity
     guid: 6536fad50da6c144da374a7f4f311b0e
+  - enabled: 1
+    path: Assets/Scenes/Level02.unity
+    guid: e9ca3dcf4de3e2647a1f6f5dc1e9c35a
   m_configObjects: {}

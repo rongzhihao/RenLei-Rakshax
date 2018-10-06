@@ -28,7 +28,7 @@ public class PhotonHandlers : MonoBehaviour {
 	}
 	public void moveScene(){
     
-		PhotonNetwork.LoadLevel("Prototype");
+		PhotonNetwork.LoadLevel("Level02");
     
       
     }
@@ -39,7 +39,7 @@ public class PhotonHandlers : MonoBehaviour {
 	}
 
 	private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode){
-		if(scene.name == "Prototype"){
+		if(scene.name == "Level02"){
 			spawnPlayer();
 		}
 	}
