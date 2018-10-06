@@ -47,6 +47,17 @@ public class PlayerController : MonoBehaviour {
 	private Color[] clothArray = {Color.red, Color.blue}; // poison and anitdote 
 	private int currentCloth = 0;
 
+	private bool canMove = true;
+
+	private string recoverStand = "RecoverStand";
+
+	private bool isRecovering = false;
+
+	private bool canBeCharge = false;
+
+
+
+
 	// Use this for initialization
 	void Start () {	
 		myRigibody = GetComponent<Rigidbody2D>();
@@ -103,31 +114,41 @@ public class PlayerController : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.E)){
 			shouldSwitch = true;
 		}
+
+		if(Input.GetKeyDown(KeyCode.T)){
+			isRecovering = true;
+		}
 	}
 
 	private void checkInput(){
-		
-		float horizontal = Input.GetAxis("Horizontal");
-		var move = new Vector3(horizontal, 0);
-		transform.position += move * moveSpeed * Time.deltaTime;
-		Flip(horizontal);
-		onGround = IsGrounded();
-		if(onGround && jump && myRigibody.velocity.y == 0)
-		{
-			onGround = false;
-			myRigibody.AddForce(new Vector2(0, jumpForce));
-          
-		}
-		if(shouldShootRed || shouldShootBlue)
-		{
-			bool isPoison = shouldShootRed ? true : false;
-			ShootBullet(isPoison);
-		}
-		if(shouldSwitch)
-		{
-			ChangeColor();
-		}
+		if(canMove){
+			float horizontal = Input.GetAxis("Horizontal");
+			var move = new Vector3(horizontal, 0);
+			transform.position += move * moveSpeed * Time.deltaTime;
+			Flip(horizontal);
+			onGround = IsGrounded();
 
+			if(onGround && jump && myRigibody.velocity.y == 0)
+			{
+				onGround = false;
+				myRigibody.AddForce(new Vector2(0, jumpForce));
+			}
+
+			if(shouldShootRed || shouldShootBlue)
+			{
+				bool isPoison = shouldShootRed ? true : false;
+				ShootBullet(isPoison);
+			}
+
+			if(shouldSwitch)
+			{
+				ChangeColor();
+			}
+			if(isRecovering && canBeCharge)
+			{
+				StartToRecovering();
+			}
+		}
 	}
 
 	private void smoothNetMovement(){
@@ -168,7 +189,7 @@ public class PlayerController : MonoBehaviour {
 		shouldShootRed = false;
 		shouldShootBlue = false;
 		shouldSwitch = false;
-
+		isRecovering = false;
 	}
 
 
@@ -176,9 +197,8 @@ public class PlayerController : MonoBehaviour {
 	
 		float offset = facingRight ? 1 : -1;
 		Vector3 bulletInitPlace = new Vector3(transform.position.x + offset, transform.position.y, transform.position.z);
-		Debug.Log("isPoison:"+isPoison);
 		GameObject bulletPrefab = isPoison ? poisonPrefab : antidotePrefab;
-		Debug.Log(bulletPrefab);
+
 		if(facingRight)
 		{
 			GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 180)), 0);
@@ -228,19 +248,19 @@ public class PlayerController : MonoBehaviour {
 
 	public void OnTriggerEnter2D(Collider2D other)
 	{
-     
         Debug.Log("sha:"+PhotonNetwork.player.ID);
         
         if (other.tag == "antidote")
 		{
 			TakeDamage(Color.blue);
-		}
-		else
-		{
+		}else if( other.tag == "poison" ){
 			TakeDamage(Color.red);
+		}else if(other.gameObject.tag == recoverStand){
+			canBeCharge = true;
 		}
 	}
    
+
 
 	private void ChangeColor(){
 		currentCloth = (currentCloth + 1) % 2;
@@ -263,4 +283,38 @@ public class PlayerController : MonoBehaviour {
 	// 		//moveSpeed = moveSpeed * 1.1f;
 	// 	}
 	// }
+
+	void OnCollisionEnter2D(Collision2D other){
+
+		if(other.gameObject.tag == recoverStand){
+			canBeCharge = true;
+		}
+	}
+
+	void OnCollisionExit2D(Collision2D other){
+
+		if(other.gameObject.tag == recoverStand){
+			//canBeCharge = false;
+		}
+	}
+
+	private void moveCount(){
+		canMove = true;
+		CancelInvoke();
+		if(true){
+			
+			if( clothArray[currentCloth] == Color.red ){
+				clothArray[(currentCloth + 1) % 2] = Color.blue;
+				ChangeColor();
+			}else{
+				clothArray[(currentCloth + 1) % 2] = Color.red;
+				ChangeColor();
+			}
+		}
+	}
+
+	private void StartToRecovering () {
+		canMove = false;
+		InvokeRepeating("moveCount",2f,1f);
+	}
 }
