@@ -244,21 +244,25 @@ public class PlayerController : MonoBehaviour {
         //Tab.clothOn[playerID - 1] = color;
         int nowColor = PhotonNetwork.player.GetScore();
         //Debug.Log("hit:" + PhotonNetwork.player.ID);
-        if (color == Color.red)
-        {
-            if (nowColor == 2)
-                PhotonNetwork.player.SetScore(0);
-            if (nowColor == 3)
-                PhotonNetwork.player.SetScore(1);
-        }
-        if (color == Color.blue)
-        {
-            if (nowColor == 1)
-                PhotonNetwork.player.SetScore(3);
-            if (nowColor == 0)
-                PhotonNetwork.player.SetScore(2);
-        }
-            
+        if (photonView.isMine)
+        {   
+
+
+            if (color == Color.red)
+            {
+                if (nowColor == 2)
+                    PhotonNetwork.player.SetScore(0);
+                if (nowColor == 3)
+                    PhotonNetwork.player.SetScore(1);
+            }
+            if (color == Color.blue)
+            {
+                if (nowColor == 1)
+                    PhotonNetwork.player.SetScore(3);
+                if (nowColor == 0)
+                    PhotonNetwork.player.SetScore(2);
+            }
+        }  
        
     }
 
