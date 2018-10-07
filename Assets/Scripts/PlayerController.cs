@@ -35,8 +35,8 @@ public class PlayerController : MonoBehaviour {
 
 	private bool facingRight = true;
 
-	[SerializeField]
-	private float health = 30;
+	//[SerializeField]
+	//private float health = 30;
 	private bool onGround;
 
 	[SerializeField]
@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 		HanldeInput();
         ResetLocation();
+		ChangeColor();
         //IsDead();
     }
 	void FixedUpdate () {
@@ -142,7 +143,7 @@ public class PlayerController : MonoBehaviour {
 
 			if(shouldSwitch)
 			{
-				ChangeColor();
+				currentCloth = (currentCloth + 1) % 2;
 			}
 			if(isRecovering && canBeCharge)
 			{
@@ -158,11 +159,13 @@ public class PlayerController : MonoBehaviour {
 	private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
 		if(stream.isWriting){
 			stream.SendNext(transform.position);
-			stream.SendNext(health);
+			stream.SendNext(currentCloth);
+			//stream.SendNext(health);
 			
 		}else{
 			selfPos = (Vector3)stream.ReceiveNext();
-			this.health = (float)stream.ReceiveNext();
+			//gameObject.GetComponent<MeshRenderer>().material.color = (Color)stream.ReceiveNext();
+			this.currentCloth = (int)stream.ReceiveNext();
 		}
 	}
 
@@ -175,7 +178,6 @@ public class PlayerController : MonoBehaviour {
 				Collider2D[] collider = Physics2D.OverlapCircleAll(point.position, groundRadius, whatisGround);
 				foreach(Collider2D colliderItem in collider){
 					if(colliderItem.gameObject != gameObject){
-						
 						return true;
 					}
 				}
@@ -220,6 +222,20 @@ public class PlayerController : MonoBehaviour {
 		}
     }
 
+	private void ChangeColor(){
+		//currentCloth = (currentCloth + 1) % 2;
+		photonView.gameObject.GetComponent<MeshRenderer>().material.color = clothArray[currentCloth];
+        if (PhotonNetwork.player.GetScore() == 1 || PhotonNetwork.player.GetScore() == 2)
+            PhotonNetwork.player.SetScore(3 - PhotonNetwork.player.GetScore());
+        /*
+        Color t = Color.white;
+        int playerID = PhotonNetwork.player.ID;
+        Debug.Log("id"+playerID);
+        t = Tab.clothOn[playerID - 1];
+        Tab.clothOn[playerID - 1] = Tab.clothOff[playerID - 1];
+        Tab.clothOff[playerID - 1] = t;*/
+	} 
+	
 	private void TakeDamage(Color color)
     {
         clothArray[currentCloth] = color;
@@ -262,19 +278,7 @@ public class PlayerController : MonoBehaviour {
    
 
 
-	private void ChangeColor(){
-		currentCloth = (currentCloth + 1) % 2;
-		photonView.gameObject.GetComponent<MeshRenderer>().material.color = clothArray[currentCloth];
-        if (PhotonNetwork.player.GetScore() == 1 || PhotonNetwork.player.GetScore() == 2)
-            PhotonNetwork.player.SetScore(3 - PhotonNetwork.player.GetScore());
-        /*
-        Color t = Color.white;
-        int playerID = PhotonNetwork.player.ID;
-        Debug.Log("id"+playerID);
-        t = Tab.clothOn[playerID - 1];
-        Tab.clothOn[playerID - 1] = Tab.clothOff[playerID - 1];
-        Tab.clothOff[playerID - 1] = t;*/
-	} 
+
 	// private void IsDead()
 	// {
 	// 	if(health <= 0)
@@ -298,24 +302,21 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	private void moveCount(){
+	private void movementCount(){
 		canMove = true;
 		CancelInvoke();
-		if(true){
-			
+		if(clothArray[currentCloth] != clothArray[(currentCloth + 1) % 2]){
 			if( clothArray[currentCloth] == Color.red ){
-				clothArray[(currentCloth + 1) % 2] = Color.blue;
-				ChangeColor();
+				clothArray[currentCloth] = Color.blue;
 			}else{
-				clothArray[(currentCloth + 1) % 2] = Color.red;
-				ChangeColor();
+				clothArray[currentCloth] = Color.red;
 			}
 		}
 	}
 
 	private void StartToRecovering () {
 		canMove = false;
-		InvokeRepeating("moveCount",2f,1f);
+		InvokeRepeating("movementCount",2f,1f);
 	}
 
 	private void ResetLocation () {
