@@ -309,7 +309,7 @@ public class PlayerController : MonoBehaviour {
 	private void movementCount(){
 		canMove = true;
 		CancelInvoke();
-		if(clothArray[currentCloth] != clothArray[(currentCloth + 1) % 2]){
+		if(clothArray[currentCloth] == clothArray[(currentCloth + 1) % 2]){
 			if( clothArray[currentCloth] == Color.red ){
 				clothArray[currentCloth] = Color.blue;
 			}else{
