@@ -16,6 +16,7 @@ namespace LeoLuz
     {
         [InputAxesListDropdown]
         public string ButtonName;
+        public KeyCode keycode;
         private bool pressed;
 #if UNITY_EDITOR
         private bool OrderOfScriptChanged;
@@ -43,7 +44,7 @@ namespace LeoLuz
 #endif
         }
 
-        public void Update()
+        /*public void Update()
         {
             if (pressed)
                 Input.PressButtonMobile(ButtonName);
@@ -64,6 +65,34 @@ namespace LeoLuz
         {
             pressed = false;
             Input.PressButtonUpMobile(ButtonName);
+        }*/
+
+
+        public void Update()
+        {
+            if (pressed)
+                //Input.PressButtonMobile(ButtonName);
+                Input.GetKeyDown(keycode);
+        }
+        public void FixedUpdate()
+        {
+            if (pressed)
+                //Input.PressButtonMobile(ButtonName);
+                Input.GetKeyDown(keycode);
+        }
+        public virtual void OnPointerDown(PointerEventData data)
+        {
+            // print("UI PointerEventData Button Pressed" + Time.time);
+            //Input.PressButtonDownMobile(ButtonName);
+            Input.GetKeyDown(keycode);
+            pressed = true;
+        }
+
+        public virtual void OnPointerUp(PointerEventData data)
+        {
+            pressed = false;
+            //Input.PressButtonUpMobile(ButtonName);
+            Input.GetKeyUp(keycode);
         }
 
     }
