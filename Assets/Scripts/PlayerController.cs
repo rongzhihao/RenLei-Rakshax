@@ -166,8 +166,11 @@ public class PlayerController : MonoBehaviour
                 currentCloth = (currentCloth + 1) % 2;
                 transferCloth();
             }
+
             if (isRecovering && canBeCharge)
             {
+                Debug.Log(isRecovering);
+               Debug.Log(canBeCharge);
                 StartToRecovering();
             }
         }
@@ -256,9 +259,6 @@ public class PlayerController : MonoBehaviour
     {
         //currentCloth = (currentCloth + 1) % 2;
         photonView.gameObject.GetComponent<MeshRenderer>().material.color = clothArray[currentCloth];
-
-
-
     }
     private void transferCloth()
     {
@@ -269,7 +269,6 @@ public class PlayerController : MonoBehaviour
     {
         clothArray[currentCloth] = color;
         photonView.gameObject.GetComponent<MeshRenderer>().material.color = clothArray[currentCloth];
-
         hittedColor(color);
 
 
@@ -316,6 +315,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    
+   public void OnTriggerExit2D(Collider2D other)
+    {
+
+        if (other.gameObject.tag == recoverStand)
+        {
+            canBeCharge = false; 
+        }
+    }
+
 
 
 
@@ -328,39 +337,28 @@ public class PlayerController : MonoBehaviour
     // 	}
     // }
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-
-        if (other.gameObject.tag == recoverStand)
-        {
-            canBeCharge = true;
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D other)
-    {
-
-        if (other.gameObject.tag == recoverStand)
-        {
-            //canBeCharge = false;
-        }
-    }
-
     private void movementCount()
     {
         canMove = true;
         CancelInvoke();
-        if (clothArray[currentCloth] != clothArray[(currentCloth + 1) % 2])
+        if (clothArray[0] == clothArray[1])
         {
-            if (clothArray[currentCloth] == Color.red)
-            {
-                clothArray[currentCloth] = Color.blue;
-            }
-            else
-            {
-                clothArray[currentCloth] = Color.red;
-            }
+        
+        Vector3 bulletInitPlace = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        GameObject bulletPrefab = clothArray[0] == Color.blue ? poisonPrefab : antidotePrefab;
+        GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 180)), 0);
+        bullet.GetComponent<fireBall>().initialize(Vector2.right);
+
+            // if (clothArray[0] == Color.red)
+            // {
+            //     TakeDamage(Color.blue);
+            // }
+            // else
+            // {
+            //     TakeDamage(Color.red);
+            // }
         }
+        Debug.Log(clothArray[0] == clothArray[1] );
     }
 
     private void StartToRecovering()
@@ -376,4 +374,5 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(0, 5, 0);
         }
     }
+
 }
