@@ -84,19 +84,19 @@ namespace LeoLuz
         {
             if (pressed)
                 Input.PressButtonMobile(ButtonName);
-                Keybd_event(keyboard, 0, 1, 0);
+                //Keybd_event(keyboard, 0, 1, 0);
         }
         public void FixedUpdate()
         {
             if (pressed)
                 Input.PressButtonMobile(ButtonName);
-                Keybd_event(keyboard, 0, 1, 0);
+                //Keybd_event(keyboard, 0, 1, 0);
         }
         public virtual void OnPointerDown(PointerEventData data)
         {
             // print("UI PointerEventData Button Pressed" + Time.time);
             Input.PressButtonDownMobile(ButtonName);
-            Keybd_event(keyboard, 0, 0, 0);
+            //Keybd_event(keyboard, 0, 0, 0);
             pressed = true;
         }
 
@@ -104,7 +104,7 @@ namespace LeoLuz
         {
             pressed = false;
             Input.PressButtonUpMobile(ButtonName);
-            Keybd_event(keyboard, 0, 2, 0);
+            //Keybd_event(keyboard, 0, 2, 0);
         }
 
     }

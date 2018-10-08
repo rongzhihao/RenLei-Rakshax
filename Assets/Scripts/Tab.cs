@@ -27,7 +27,7 @@ public class Tab : MonoBehaviour
     {
 
         time.GetComponent<Transform>().position = new Vector3(PlayerController.playerX + 5, PlayerController.playerY + 5, 100);
-        if (Input.GetKey(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
 
             jilu.GetComponent<Transform>().position = new Vector3(PlayerController.playerX-2, PlayerController.playerY+1);

@@ -90,8 +90,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerX = this.GetComponent<Transform>().position.x;
+        if (photonView.isMine)
+        {
+         playerX = this.GetComponent<Transform>().position.x;
         playerY = this.GetComponent<Transform>().position.y;
+        }
+           
         HanldeInput();
         ResetLocation();
         ChangeColor();
