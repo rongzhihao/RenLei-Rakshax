@@ -145,7 +145,7 @@ namespace SimpleHealthBar_SpaceshipExample
 		void Aiming ()
 		{
 			// Position the image on the mouse.
-			overheatVisual.position = Input.mousePosition - ( Vector3 )( overheatVisual.sizeDelta / 2 );
+			overheatVisual.position = Input.mousePosition - ( overheatVisual.sizeDelta / 2 );
 
 			float mousePositionX = Input.mousePosition.x;
 			float mousePositionY = Input.mousePosition.y;
