@@ -12,6 +12,7 @@ public class fireBall : MonoBehaviour {
 	private float speed = 20f;
 	void Start () {
 		myRigidbody = GetComponent<Rigidbody2D>();
+		InvokeRepeating("destroyFireBall", 0.05f, 0.05f);
 	}
 	
 	// Update is called once per frame
@@ -19,11 +20,14 @@ public class fireBall : MonoBehaviour {
 		myRigidbody.velocity = direction * speed; 
 	}
 
-	void OnBecameInvisible()
-	{
+	// void OnBecameInvisible()
+	// {
+	// 	PhotonNetwork.Destroy(gameObject);
+	// }
+
+	private void destroyFireBall () {
 		PhotonNetwork.Destroy(gameObject);
 	}
-
 	public void initialize(Vector2 direction)
 	{
 		this.direction = direction;
