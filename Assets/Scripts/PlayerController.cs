@@ -5,6 +5,15 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    /*
+     * GET ACCESS TO PlayerPickup SCRIPT
+     * After shoot, please call "shootBlueBullet" or "shootRedBullet" to update the display status of slots
+     * like playerPickup.shootBlueBullet or playerPickup.shootRedBullet
+     */
+    public PlayerPickup playerPickup;
+    
+
+
 
     public bool devTestng = false;
     public PhotonView photonView;
@@ -18,7 +27,7 @@ public class PlayerController : MonoBehaviour
     public Text plName;
     public GameObject sceneCam;
     public GameObject plCam;
-
+    
     [SerializeField]
     public Rigidbody2D myRigibody;
 
@@ -301,7 +310,6 @@ public class PlayerController : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("sha:" + PhotonNetwork.player.ID);
-
         if (other.tag == "antidote")
         {
             TakeDamage(Color.blue);

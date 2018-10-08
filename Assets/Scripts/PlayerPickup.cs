@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class PlayerPickup : MonoBehaviour {
     public string pickUpKey = "k";
-    private int[] blueBag = new int[2]; // white = 0, blue = 1
-    private int[] redBag = new int[2];// white = 0, red = 1
-    private int[] theOtherBag = new int[1];// blue = 1, red = 2
+    public GameObject slotsPrefab;
 
+    public static int[] blueBag = new int[2]; // white = 0, blue = 1
+    private static int[] redBag = new int[2];// white = 0, red = 1
+    private static int[] theOtherBag = new int[1];// blue = 1, red = 2
+    private GameObject slots;
     // Use this for initialization
     void Start()
     {
         initBags();//set all spots in bags = 0 (means every spot has no item)
+
+        Vector3 playerPos = transform.position;
+        slots = Instantiate(slotsPrefab, playerPos, slotsPrefab.transform.rotation);
 
     }
     //inital bags
@@ -66,9 +71,14 @@ public class PlayerPickup : MonoBehaviour {
             Debug.Log(array[i]);
         }
     }
+    private void keepSlotsAlwaysOnCamera()
+    {
+        slots.transform.position = transform.position + new Vector3(-2.25f,2,0);
+    }
     // Update is called once per frame
     void Update()
     {
+        keepSlotsAlwaysOnCamera();
         if (Input.GetKeyDown(pickUpKey))
         {
             Debug.Log("111");
@@ -140,31 +150,25 @@ public class PlayerPickup : MonoBehaviour {
                 }
             }
         }
-        if (Input.GetKeyDown("n"))
-        {
-            Debug.Log("blue:");
-            printArray(blueBag);
-            Debug.Log("red:");
-            printArray(redBag);
-            Debug.Log("other:");
-            printArray(theOtherBag);
-        }
+        
 
         syncBagsToImage();
     }
 
     void syncBagsToImage()
     {
-        for(int i = 0; i < blueBag.Length; i++)
+        //Debug.Log("enter syncBagsToImage");
+        //Debug.Log(GameObject.Find("BlueSlot1").GetComponent<SpriteRenderer>().color);
+        for (int i = 0; i < blueBag.Length; i++)
         {
             string name = "BlueSlot" + (i+1);
             if (blueBag[i] == 1)
             {
-                GameObject.Find(name).GetComponent<SpriteRenderer>().color = Color.blue;
+                slots.transform.Find(name).gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
             }
             else
             {
-                GameObject.Find(name).GetComponent<SpriteRenderer>().color = Color.white;
+                slots.transform.Find(name).gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
         for (int i = 0; i < redBag.Length; i++)
@@ -172,24 +176,95 @@ public class PlayerPickup : MonoBehaviour {
             string name = "RedSlot" + (i + 1);
             if (redBag[i] == 1)
             {
-                GameObject.Find(name).GetComponent<SpriteRenderer>().color = Color.red;
+                slots.transform.Find(name).gameObject.GetComponent<SpriteRenderer>().color = Color.red;
             }
             else
             {
-                GameObject.Find(name).GetComponent<SpriteRenderer>().color = Color.white;
+                slots.transform.Find(name).gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
         if (theOtherBag[0] == 1)
         {
-            GameObject.Find("RandomSlot").GetComponent<SpriteRenderer>().color = Color.blue;
+            slots.transform.Find("RandomSlot").gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
         }
         else if(theOtherBag[0] == 2)
         {
-            GameObject.Find("RandomSlot").GetComponent<SpriteRenderer>().color = Color.red;
+            slots.transform.Find("RandomSlot").gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
         else
         {
-            GameObject.Find("RandomSlot").GetComponent<SpriteRenderer>().color = Color.white;
+            slots.transform.Find("RandomSlot").gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+    }
+
+    public int[] getNumberOfBullet()
+    {
+        int[] result = new int[] {0,0,0,0,0};
+        result[0] = blueBag[0];
+        result[1] = blueBag[1];
+        result[2] = redBag[0];
+        result[3] = redBag[1];
+        result[4] = theOtherBag[0];
+
+        return result;
+
+    }
+    /*
+     * After shooting a blue bullet, please call this function to change bullet status in slots
+     */
+
+    public void shootBlueBullet()
+    {
+        if(blueBag[0]==0)
+        {
+            if (blueBag[1] == 0)
+            {
+                if (theOtherBag[0] == 1)
+                {
+                    theOtherBag[0] = 0;
+                }
+                else
+                {
+                    // no blue bullet
+                }
+            }
+            else
+            {
+                blueBag[1] = 0;
+            }
+        }
+        else
+        {
+            blueBag[0] = 0;
+        }
+        
+    }
+    /*
+     * After shooting a red bullet, please call this function to change bullet status in slots
+     */
+    public void shootRedBullet()
+    {
+        if (redBag[0] == 0)
+        {
+            if (redBag[1] == 0)
+            {
+                if (theOtherBag[0] == 2)
+                {
+                    theOtherBag[0] = 0;
+                }
+                else
+                {
+                    // no red bullet
+                }
+            }
+            else
+            {
+                redBag[1] = 0;
+            }
+        }
+        else
+        {
+            redBag[0] = 0;
         }
     }
 }

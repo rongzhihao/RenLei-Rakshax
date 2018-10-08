@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - antidote
+  - poison
+  - RecoverStand
+  - Items
+  - FireBall
   layers:
   - Default
   - TransparentFX
@@ -40,4 +45,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BulletSlot Layer1
+    uniqueID: 3996179067
     locked: 0
