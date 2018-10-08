@@ -614,8 +614,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a157ba41ba8dcd044b11cd74f28153ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyboard: 81
   ButtonName: Jump
-  keycode: 113
 --- !u!225 &194002696
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1267,8 +1267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a157ba41ba8dcd044b11cd74f28153ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyboard: 69
   ButtonName: Fire2
-  keycode: 101
 --- !u!225 &456458763
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3658,8 +3658,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a157ba41ba8dcd044b11cd74f28153ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyboard: 32
   ButtonName: Jump
-  keycode: 32
 --- !u!225 &1186683581
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -4242,8 +4242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a157ba41ba8dcd044b11cd74f28153ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyboard: 87
   ButtonName: Fire2
-  keycode: 119
 --- !u!225 &1320188626
 CanvasGroup:
   m_ObjectHideFlags: 0
