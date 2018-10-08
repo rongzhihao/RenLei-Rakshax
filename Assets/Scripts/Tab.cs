@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tab : MonoBehaviour {
+public class Tab : MonoBehaviour
+{
     //public static List<Color> clothOn = new List<Color>();
     //public static List<Color> clothOff = new List<Color>();
-    
+
     public GameObject jilu;
-	// Use this for initialization
-	void Start () {
+   
+    public GameObject time;
+    // Use this for initialization
+    void Start()
+    {
         //for (int i = 0;i<PhotonNetwork.room.PlayerCount;i++)
         //Debug.Log(PhotonNetwork.playerList[i].ID);
         //clothOn.Add(Color.red);
@@ -16,15 +20,17 @@ public class Tab : MonoBehaviour {
         //Debug.Log(clothOn);
         PhotonNetwork.player.SetScore(1);
         Debug.Log(PhotonNetwork.player.ID);
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
 
+        time.GetComponent<Transform>().position = new Vector3(PlayerController.playerX + 5, PlayerController.playerY + 5, 100);
         if (Input.GetKey(KeyCode.Tab))
         {
-            
+
+            jilu.GetComponent<Transform>().position = new Vector3(PlayerController.playerX-2, PlayerController.playerY+1);
             jilu.GetComponent<TextMesh>().text = "Player    ClothOn   ClothOff\n";
 
             for (int i = 0; i < PhotonNetwork.room.PlayerCount; i++)
@@ -65,8 +71,8 @@ public class Tab : MonoBehaviour {
         }
         if (Input.GetKeyUp(KeyCode.Tab))
             jilu.SetActive(false);
-    
-    
-        
-	}
+
+
+
+    }
 }

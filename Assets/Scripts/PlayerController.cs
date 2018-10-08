@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     public PhotonView photonView;
     public static float moveSpeed = 10f;
     public float jumpForce = 800f;
-
+    public static float playerX;
+    public static float playerY;
     private Vector3 selfPos;
 
     private bool jump;
@@ -80,6 +81,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerX = this.GetComponent<Transform>().position.x;
+        playerY = this.GetComponent<Transform>().position.y;
         HanldeInput();
         ResetLocation();
         ChangeColor();
