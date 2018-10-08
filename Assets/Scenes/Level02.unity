@@ -615,7 +615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyboard: 81
-  ButtonName: Jump
+  ButtonName: Fire1
 --- !u!225 &194002696
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1268,7 +1268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyboard: 69
-  ButtonName: Fire2
+  ButtonName: Fire3
 --- !u!225 &456458763
 CanvasGroup:
   m_ObjectHideFlags: 0

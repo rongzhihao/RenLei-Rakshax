@@ -122,22 +122,22 @@ public class PlayerController : MonoBehaviour
         // if(Input.GetKeyDown(KeyCode.Q)){
         // 	//ShortAttack();
         // }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)|| Input.GetButtonDownMobile("Jump"))
         {
             jump = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDownMobile("Fire1"))
         {
             shouldShootRed = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetButtonDownMobile("Fire2"))
         {
             shouldShootBlue = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDownMobile("Fire3"))
         {
             shouldSwitch = true;
         }
