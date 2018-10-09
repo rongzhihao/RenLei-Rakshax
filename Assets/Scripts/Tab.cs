@@ -30,7 +30,7 @@ public class Tab : MonoBehaviour
         //time.GetComponent<Transform>().position = new Vector3(PlayerController.playerX + 3, PlayerController.playerY + 5, 100);
         timePanel.GetComponent<Transform>().position = new Vector3(PlayerController.playerX + 6, PlayerController.playerY + 3, 100);
      
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab)||Input.GetButtonDownMobile("Submit"))
         {
 
             //jilu.GetComponent<Transform>().position = new Vector3(PlayerController.playerX-2, PlayerController.playerY+1);
@@ -76,7 +76,7 @@ public class Tab : MonoBehaviour
             
             Debug.Log(jilu.GetComponent<Text>().text);
         }
-        if (Input.GetKeyUp(KeyCode.Tab))
+        if (Input.GetKeyUp(KeyCode.Tab)||Input.GetButtonUpMobile("Submit"))
         {
             jilu.SetActive(false);
             recordPanel.SetActive(false);
