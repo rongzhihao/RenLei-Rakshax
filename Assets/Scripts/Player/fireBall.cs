@@ -9,21 +9,32 @@ public class fireBall : MonoBehaviour {
 	private Rigidbody2D myRigidbody;
 	private Vector2 direction;
 	[SerializeField]
-	private float speed = 20f;
+	private float speed = 10f;
+	private int distance = 0;
+
+	private int maxDistance = 4;
 	void Start () {
 		myRigidbody = GetComponent<Rigidbody2D>();
-		InvokeRepeating("destroyFireBall", 0.05f, 0.05f);
+		//InvokeRepeating("destroyFireBall", 0.05f, 0.05f);
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		myRigidbody.velocity = direction * speed; 
+		distance += 1;
+		if(distance > maxDistance){
+			PhotonNetwork.Destroy(gameObject);
+		}
+		
 	}
 
-	// void OnBecameInvisible()
-	// {
+	// void OnTriggerEnter2D(Collider2D other) {
 	// 	PhotonNetwork.Destroy(gameObject);
 	// }
+	void OnBecameInvisible()
+	{
+		PhotonNetwork.Destroy(gameObject);
+	}
 
 	private void destroyFireBall () {
 		PhotonNetwork.Destroy(gameObject);

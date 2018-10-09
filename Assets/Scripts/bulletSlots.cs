@@ -19,9 +19,6 @@ public class bulletSlots : MonoBehaviour {
 
 	private void keepSlotsAlwaysOnCamera()
     {
-		Debug.Log(player.transform.position);
-        //transform.position = player.transform.position + new Vector3(-6f,4.5f,0);
-		transform.position = new Vector3(player.position.x - 6.2f,player.position.y + 4.5f,
-							transform.position.z);
+		transform.position = new Vector3(player.position.x - 6.2f, player.position.y + 4.5f, transform.position.z);
     }
 }
