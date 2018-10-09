@@ -9,9 +9,10 @@ public class time : MonoBehaviour
     public GameObject timeText;
     public GameObject jilu;
     private float spendTime;
-    private float endTime = 60f;
+    private float endTime = 10f;
     private int hour, minute, second;
     public GameObject endGame;
+    public GameObject result;
     void Start()
     {
         /*
@@ -84,7 +85,44 @@ public class time : MonoBehaviour
                 }
                 jilu.GetComponent<Transform>().position = new Vector3(PlayerController.playerX - 2, PlayerController.playerY + 1);
                 jilu.SetActive(true);
+                getResult();
             }
         }
+    }
+    void getResult()
+    {
+        int red = 0;
+        int blue = 0;
+        for (int i = 0; i < PhotonNetwork.room.PlayerCount; i++)
+        {
+            if (PhotonNetwork.playerList[i].GetScore() <= 1)
+                red++;
+            else
+                blue++;
+        }
+        if (blue == 0 || red == 0)
+            result.GetComponent<TextMesh>().text = "You win!";
+        else
+        {
+            if (red == blue)
+                result.GetComponent<TextMesh>().text = "It's a tie!";
+            if (red < blue)
+            {
+                if (PhotonNetwork.player.GetScore() <= 1)
+                    result.GetComponent<TextMesh>().text = "You win!";
+                else
+                    result.GetComponent<TextMesh>().text = "You lose!";
+            }
+            if (red > blue)
+            {
+                if (PhotonNetwork.player.GetScore() > 1)
+                    result.GetComponent<TextMesh>().text = "You win!";
+                else
+                    result.GetComponent<TextMesh>().text = "You lose!";
+            }
+        }
+        
+        result.GetComponent<Transform>().position = new Vector3(PlayerController.playerX +3 , PlayerController.playerY + 4, 100);
+        result.SetActive(true);
     }
 }
