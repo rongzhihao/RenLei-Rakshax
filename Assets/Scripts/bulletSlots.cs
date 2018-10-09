@@ -46,7 +46,13 @@ public class bulletSlots : MonoBehaviour {
 			randomSlot.GetComponent<SpriteRenderer>().color = Color.blue;
 		}
 
+		if( redBulletCount == 0 && randomSlot.GetComponent<SpriteRenderer>().color == Color.red){
+			randomSlot.GetComponent<SpriteRenderer>().color = Color.white;
+		}
 
+		if( blueBulletCount == 0 && randomSlot.GetComponent<SpriteRenderer>().color == Color.blue){
+			randomSlot.GetComponent<SpriteRenderer>().color = Color.white;
+		}
     }
 
     private void keepSlotsAlwaysOnCamera()
