@@ -15,9 +15,9 @@ namespace LeoLuz
         public RectTransform AnalogicKnobObject;
         public RectTransform RootCanvas;
         [HideInInspector]
-        public float XNormalScope = 0.5f;
+        public float XNormalScope = 0.5f;//0.5f
         [HideInInspector]
-        public float YNormalScope = 0.6f;
+        public float YNormalScope = 0.6f;//0.6f
 
         private Vector2 StartPosition;
         private Vector2 CurrentKnobPosition;
@@ -82,6 +82,8 @@ namespace LeoLuz
             ProportionPercent = new Vector2(CanvasSize.x / ScreenPixels.x, CanvasSize.y / ScreenPixels.y);
             XNormalScope = ScreenPixels.x * XNormalScope;
             YNormalScope = ScreenPixels.y * YNormalScope;
+            Debug.Log("Screen Width : " + Screen.width);
+            Debug.Log("Screen.height : " + Screen.height);
         }
         Vector2 lastFrameNormalizedAxis;
         void Update()
@@ -92,7 +94,7 @@ namespace LeoLuz
             //SIMULATED MOBILE VIRTUAL JOYSTICK KNOB ON EDITOR
             if (UnityEngine.Input.GetMouseButtonDown(0))
             {
-                if (UnityEngine.Input.mousePosition.x < 250 && UnityEngine.Input.mousePosition.y < 250)//XNormalScope //YNormalScope
+                if (UnityEngine.Input.mousePosition.x < Screen.height*0.5 && UnityEngine.Input.mousePosition.y < Screen.height * 0.5)//XNormalScope //YNormalScope
                 {
                     Released = false;
                     StartPosition = UnityEngine.Input.mousePosition;
@@ -101,7 +103,7 @@ namespace LeoLuz
             }
             else if (UnityEngine.Input.GetMouseButton(0))
             {
-                if (UnityEngine.Input.mousePosition.x < 250 && UnityEngine.Input.mousePosition.y < 250)  //XNormalScope //YNormalScope
+                if (UnityEngine.Input.mousePosition.x < Screen.height * 0.5 && UnityEngine.Input.mousePosition.y < Screen.height * 0.5)  //XNormalScope //YNormalScope
                 {
                     CurrentKnobPosition = UnityEngine.Input.mousePosition;
                     RawAxis = CurrentKnobPosition - StartPosition;
@@ -127,7 +129,7 @@ namespace LeoLuz
                 for (int i = 0; i < Input.touchCount; i++)
                 {
                     Touch touch = Input.GetTouch(i);
-                    if (touch.position.y < YNormalScope && touch.position.x < YNormalScope)
+                    if (touch.position.y < Screen.height * 0.5 && touch.position.x < Screen.height * 0.5)//XNormalScope //YNormalScope
                     {
                         AnalogTouch = touch;
                     }
