@@ -26,7 +26,7 @@ public class Tab : MonoBehaviour
     void Update()
     {
 
-        time.GetComponent<Transform>().position = new Vector3(PlayerController.playerX + 5, PlayerController.playerY + 5, 100);
+        time.GetComponent<Transform>().position = new Vector3(PlayerController.playerX + 3, PlayerController.playerY + 5, 100);
         if (Input.GetKeyDown(KeyCode.Tab))
         {
 
