@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
     private Color[] clothArray = { Color.red, Color.blue }; // poison and anitdote 
     private int currentCloth = 0;
 
-    private bool canMove = true;
+    public static bool canMove = true;
 
     private string recoverStand = "RecoverStand";
 
