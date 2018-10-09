@@ -92,7 +92,7 @@ namespace LeoLuz
             //SIMULATED MOBILE VIRTUAL JOYSTICK KNOB ON EDITOR
             if (UnityEngine.Input.GetMouseButtonDown(0))
             {
-                if (UnityEngine.Input.mousePosition.x < XNormalScope && UnityEngine.Input.mousePosition.y < YNormalScope)
+                if (UnityEngine.Input.mousePosition.x < 250 && UnityEngine.Input.mousePosition.y < 250)//XNormalScope //YNormalScope
                 {
                     Released = false;
                     StartPosition = UnityEngine.Input.mousePosition;
@@ -101,7 +101,7 @@ namespace LeoLuz
             }
             else if (UnityEngine.Input.GetMouseButton(0))
             {
-                if (UnityEngine.Input.mousePosition.x < XNormalScope && UnityEngine.Input.mousePosition.y < YNormalScope)
+                if (UnityEngine.Input.mousePosition.x < 250 && UnityEngine.Input.mousePosition.y < 250)  //XNormalScope //YNormalScope
                 {
                     CurrentKnobPosition = UnityEngine.Input.mousePosition;
                     RawAxis = CurrentKnobPosition - StartPosition;
