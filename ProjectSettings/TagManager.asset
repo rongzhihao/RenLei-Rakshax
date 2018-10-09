@@ -9,6 +9,11 @@ TagManager:
   - RecoverStand
   - Items
   - FireBall
+  - Edge
+  - EnemyBall
+  - RedSlot
+  - BlueSlot
+  - RandomSlot
   layers:
   - Default
   - TransparentFX

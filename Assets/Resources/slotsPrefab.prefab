@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212485472249635508}
   m_Layer: 0
   m_Name: BlueSlot2
-  m_TagString: Untagged
+  m_TagString: BlueSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 212989130513281034}
   m_Layer: 0
   m_Name: RandomSlot
-  m_TagString: Untagged
+  m_TagString: RandomSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 212346930163611780}
   m_Layer: 0
   m_Name: RedSlot1
-  m_TagString: Untagged
+  m_TagString: RedSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 212146262649201930}
   m_Layer: 0
   m_Name: BlueSlot1
-  m_TagString: Untagged
+  m_TagString: BlueSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 212905188651806270}
   m_Layer: 0
   m_Name: RedSlot2
-  m_TagString: Untagged
+  m_TagString: RedSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
