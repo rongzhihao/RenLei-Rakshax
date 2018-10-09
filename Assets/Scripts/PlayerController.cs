@@ -5,13 +5,26 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    private static PlayerController instance;
+
+	public static PlayerController Instance
+	{
+		get{
+			if(instance == null)
+			{
+				instance = GameObject.FindObjectOfType<PlayerController>();
+			}
+
+			return instance;
+		}
+	}
+
     /*
      * GET ACCESS TO PlayerPickup SCRIPT
      * After shoot, please call "shootBlueBullet" or "shootRedBullet" to update the display status of slots
      * like playerPickup.shootBlueBullet or playerPickup.shootRedBullet
      */
     public PlayerPickup playerPickup;
-    
 
 
 
@@ -65,6 +78,9 @@ public class PlayerController : MonoBehaviour
     private bool isRecovering = false;
 
     private bool canBeCharge = false;
+
+    public int redBullet {get; set;}
+    public int  blueBullet {get; set;}
 
 
 
@@ -168,11 +184,16 @@ public class PlayerController : MonoBehaviour
                 myRigibody.AddForce(new Vector2(0, jumpForce));
             }
 
-            if (shouldShootRed || shouldShootBlue)
-            {
-                bool isPoison = shouldShootRed ? true : false;
-                ShootBullet(isPoison);
+            if(shouldShootRed && redBullet > 0){
+                ShootBullet(true);
+                redBullet--;
             }
+
+            if(shouldShootBlue && blueBullet > 0){
+                ShootBullet(false);
+                blueBullet--;
+            }
+
 
             if (shouldSwitch)
             {
@@ -239,7 +260,9 @@ public class PlayerController : MonoBehaviour
         isRecovering = false;
     }
 
-
+    /*
+       Parameter isPoison: true is red, false is blue
+     */
     public void ShootBullet(bool isPoison)
     {
 
@@ -338,7 +361,17 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    /*
+        0 is red; 1 is blue
+     */
+    public void AddBullet( int bulletType ) {
 
+        if( (bulletType == 0) && (redBullet < 2 || blueBullet < 3 )){
+            redBullet++;
+        }else if ( (bulletType == 1) && ( blueBullet < 2 || redBullet < 3) ){
+            blueBullet++;
+        }
+    }
 
     // private void IsDead()
     // {

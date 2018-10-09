@@ -12,19 +12,16 @@ public class PickUpItem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		DestroyItem();
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
 		Debug.Log(other.tag);
 		if(other.tag == "Player"){
-
-			canBePickUp = true;
-		}
-	}
-
-	void DestroyItem () {
-		if(canBePickUp){
+			if(gameObject.tag == "RedSlot"){
+				other.gameObject.GetComponent<PlayerController>().AddBullet(0);
+			}else{
+				other.gameObject.GetComponent<PlayerController>().AddBullet(1);
+			}
 			PhotonNetwork.Destroy(gameObject);
 		}
 	}

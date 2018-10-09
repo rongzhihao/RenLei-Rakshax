@@ -10,7 +10,10 @@ public class SpawBullet : MonoBehaviour {
 	private GameObject blueBullet;
 	// Use this for initialization
 	void Start () {
-		SpawBullets();
+		if(PhotonNetwork.playerList.Length <= 1){
+			SpawBullets();
+		}
+		
 	}
 	
 	// Update is called once per frame
@@ -20,7 +23,11 @@ public class SpawBullet : MonoBehaviour {
 
 
 	private void SpawBullets (){
-        Vector3 bulletInitPlace = new Vector3(-1,1,0);
-        GameObject bullet = (GameObject)PhotonNetwork.Instantiate(redBullet.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 180)), 0);
+        Vector3 bulletInitPlace1 = new Vector3(-1,1,0);
+        GameObject bullet1 = (GameObject)PhotonNetwork.Instantiate(redBullet.name, bulletInitPlace1, Quaternion.Euler(new Vector3(0, 0, 180)), 0);
+	
+		Vector3 bulletInitPlace2 = new Vector3(-3,1,0);
+        GameObject bullet2 = (GameObject)PhotonNetwork.Instantiate(redBullet.name, bulletInitPlace2, Quaternion.Euler(new Vector3(0, 0, 180)), 0);
+	
 	}
 }

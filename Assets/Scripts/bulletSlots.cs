@@ -1,14 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class bulletSlots : MonoBehaviour {
 
-	
-	private Transform player;
+	private GameObject[] redSlotsArray;
+	private GameObject[] blueSlotsArray;
+	private GameObject randomSlot;
+	private GameObject player;
 	// Use this for initialization
 	void Start () {
-		player = GameObject.FindGameObjectWithTag("Player").transform; 
+		player = GameObject.FindGameObjectWithTag("Player"); 
+		redSlotsArray = GameObject.FindGameObjectsWithTag("RedSlot");
+		blueSlotsArray = GameObject.FindGameObjectsWithTag("BlueSlot");
+		randomSlot = GameObject.FindGameObjectWithTag("RandomSlot");
 	}
 	
 	// Update is called once per frame
@@ -16,9 +22,49 @@ public class bulletSlots : MonoBehaviour {
 		keepSlotsAlwaysOnCamera();
 	}
 
+	void Update (){
+		checkBullet();
+	}
 
-	private void keepSlotsAlwaysOnCamera()
+    private void checkBullet()
     {
-		transform.position = new Vector3(player.position.x - 6.2f, player.position.y + 4.5f, transform.position.z);
+		int redBulletCount = player.GetComponent<PlayerController>().redBullet;
+		int blueBulletCount = player.GetComponent<PlayerController>().blueBullet;
+		Debug.Log("redBulletCount:"+redBulletCount);
+		Debug.Log("blueBulletCount:"+blueBulletCount);
+		if(redBulletCount < 3){
+			reloadSlots(redBulletCount, Color.red, redSlotsArray);
+		}else{
+			reloadSlots(2, Color.red, redSlotsArray);
+			randomSlot.GetComponent<SpriteRenderer>().color = Color.red;
+		}
+
+		if(blueBulletCount < 3){
+			reloadSlots(blueBulletCount, Color.blue, blueSlotsArray);
+		}else{
+			reloadSlots(2, Color.blue, blueSlotsArray);
+			randomSlot.GetComponent<SpriteRenderer>().color = Color.blue;
+		}
+
+
     }
+
+    private void keepSlotsAlwaysOnCamera()
+    {
+		transform.position = new Vector3(player.transform.position.x - 6.2f, player.transform.position.y + 4.5f, transform.position.z);
+    }
+
+	private void reloadSlots( int index, Color color,GameObject[] slots ){
+		int slot = 0 ;
+		for(; slot < index; slot++){
+			slots[slot].GetComponent<SpriteRenderer>().color = color;
+		}
+
+		for(; slot < 2; slot++){
+			slots[slot].GetComponent<SpriteRenderer>().color = Color.white;
+		}
+		
+	}
+
+
 }
