@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 			{
 				instance = GameObject.FindObjectOfType<PlayerController>();
 			}
-
+           
 			return instance;
 		}
 	}

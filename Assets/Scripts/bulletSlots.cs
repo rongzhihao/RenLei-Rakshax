@@ -30,8 +30,8 @@ public class bulletSlots : MonoBehaviour {
     {
 		int redBulletCount = player.GetComponent<PlayerController>().redBullet;
 		int blueBulletCount = player.GetComponent<PlayerController>().blueBullet;
-		Debug.Log("redBulletCount:"+redBulletCount);
-		Debug.Log("blueBulletCount:"+blueBulletCount);
+		//Debug.Log("redBulletCount:"+redBulletCount);
+		//Debug.Log("blueBulletCount:"+blueBulletCount);
 		if(redBulletCount < 3){
 			reloadSlots(redBulletCount, Color.red, redSlotsArray);
 		}else{

@@ -54,3 +54,12 @@ TagManager:
   - name: BulletSlot Layer1
     uniqueID: 3996179067
     locked: 0
+  - name: record
+    uniqueID: 1725611691
+    locked: 0
+  - name: endGame
+    uniqueID: 1880787093
+    locked: 0
+  - name: time
+    uniqueID: 1504422297
+    locked: 0
