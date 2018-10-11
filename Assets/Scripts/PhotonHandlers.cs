@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PhotonHandlers : MonoBehaviour {
 
 	public PhotonButton photonB;
-
+   
 	public GameObject mainPlayer;
 
 	private void Awake(){
@@ -46,5 +47,7 @@ public class PhotonHandlers : MonoBehaviour {
 
 	private void spawnPlayer(){
 		PhotonNetwork.Instantiate(mainPlayer.name, mainPlayer.transform.position, mainPlayer.transform.rotation, 0);
-	}
+
+    }
+    
 }

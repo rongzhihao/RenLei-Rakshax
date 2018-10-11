@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+    
     /*
      * GET ACCESS TO PlayerPickup SCRIPT
      * After shoot, please call "shootBlueBullet" or "shootRedBullet" to update the display status of slots
@@ -89,8 +90,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         myRigibody = GetComponent<Rigidbody2D>();
-
-
+        
+        
     }
 
     private void Awake()
