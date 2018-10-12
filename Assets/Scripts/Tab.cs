@@ -40,7 +40,8 @@ public class Tab : MonoBehaviour
 
             for (int i = 0; i < PhotonNetwork.room.PlayerCount; i++)
             {
-                jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].ID;
+                //jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].ID;
+                jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].CustomProperties["name"].ToString();
                 if (PhotonNetwork.playerList[i].GetScore() == 0)
                 {
                     jilu.GetComponent<Text>().text += "<color=#EA464B>               Red          </color>";

@@ -11,7 +11,7 @@ public class time : MonoBehaviour
     public GameObject recordPanel;
     public GameObject jilu;
     private float spendTime;
-    private float endTime = 20f;
+    private float endTime = 60f;
     private int hour, minute, second;
     public GameObject endGame;
     public GameObject result;
@@ -67,7 +67,8 @@ public class time : MonoBehaviour
             endGame.SetActive(true);
             for (int i = 0; i < PhotonNetwork.room.PlayerCount; i++)
             {
-                jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].ID;
+                //jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].ID;
+                jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].CustomProperties["name"].ToString();
                 if (PhotonNetwork.playerList[i].GetScore() == 0)
                 {
                     jilu.GetComponent<Text>().text += "<color=#EA464B>               Red          </color>";
