@@ -92,7 +92,7 @@ public class time : MonoBehaviour
                 getResult();
                 PhotonNetwork.player.SetTeam(PunTeams.Team.blue);
             }
-        } else if ( PhotonNetwork.player.ID != 1 && PhotonNetwork.playerList[0].GetTeam() == PunTeams.Team.blue){
+        } else if ( (PhotonNetwork.player.ID != 1 && PhotonNetwork.playerList[0].GetTeam() == PunTeams.Team.blue) || spendTime >= endTime){
             // PhotonNetwork.LoadLevel("gameConnect");
             PlayerController.canMove = false;
             jilu.GetComponent<Text>().text = "Player    ClothOn   ClothOff\n";
