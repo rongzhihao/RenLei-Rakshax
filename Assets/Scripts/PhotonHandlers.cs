@@ -19,7 +19,7 @@ public class PhotonHandlers : MonoBehaviour {
 	}
 
 	public void createNewRoom(){
-		PhotonNetwork.CreateRoom(photonB.createRoomInput.text, new RoomOptions(){MaxPlayers = 4}, null);
+		PhotonNetwork.CreateRoom(photonB.createRoomInput.text, new RoomOptions(){MaxPlayers = 10}, null);
 	}
 
 	public void joinOrCreateRoom(){
