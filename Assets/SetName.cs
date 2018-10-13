@@ -10,9 +10,8 @@ public class SetName : MonoBehaviour {
         if (p.owner.name == "")
             p.owner.name = "Player"+PhotonNetwork.player.ID.ToString();
         GetComponent<Text>().text = p.owner.name;
-        ExitGames.Client.Photon.Hashtable name = new ExitGames.Client.Photon.Hashtable();
-        name["name"] = p.owner.name;
-        PhotonNetwork.player.SetCustomProperties(name);
+      
+      
     }
 	
 	// Update is called once per frame

@@ -56,7 +56,7 @@ public class time : MonoBehaviour
             //timeText.GetComponent<TextMesh>().text = PhotonNetwork.playerList[0].CustomProperties["time"].ToString();
             timeText.GetComponent<Text>().text = PhotonNetwork.playerList[0].CustomProperties["time"].ToString();
             spendTime = float.Parse(PhotonNetwork.playerList[0].CustomProperties["pastTime"].ToString());
-            Debug.Log(spendTime);
+           // Debug.Log(spendTime);
         }
         if (spendTime >= endTime)
         {
