@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     public bool devTestng = false;
     public PhotonView photonView;
-    public static float moveSpeed = 10f;
+    public static float moveSpeed = 6f;
     public float jumpForce = 800f;
     public static float playerX;
     public static float playerY;

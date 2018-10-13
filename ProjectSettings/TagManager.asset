@@ -14,6 +14,7 @@ TagManager:
   - RedSlot
   - BlueSlot
   - RandomSlot
+  - Damage2
   layers:
   - Default
   - TransparentFX
@@ -62,4 +63,7 @@ TagManager:
     locked: 0
   - name: time
     uniqueID: 1504422297
+    locked: 0
+  - name: boudaries
+    uniqueID: 386629349
     locked: 0
