@@ -11,7 +11,7 @@ public class time : MonoBehaviour
     public GameObject recordPanel;
     public GameObject jilu;
     private float spendTime;
-    private float endTime = 60f;
+    private float endTime = 90f;
     private int hour, minute, second;
     public GameObject endGame;
     public GameObject result;
