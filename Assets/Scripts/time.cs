@@ -20,7 +20,12 @@ public class time : MonoBehaviour
         
         if (PhotonNetwork.player.ID == 1){
             PhotonNetwork.player.SetTeam(PunTeams.Team.red);
+            spendTime = 0;
+        }else{
+            spendTime = float.Parse(PhotonNetwork.playerList[0].customProperties["pastTime"].ToString());
+
         }
+        
         // else
         // //Debug.Log(PhotonNetwork.playerList[0].CustomProperties["time"]);
         // {
@@ -34,35 +39,21 @@ public class time : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(PhotonNetwork.player.ID == 1){
+            ExitGames.Client.Photon.Hashtable startTime = new ExitGames.Client.Photon.Hashtable();
+            //startTime["time"] = timeText.GetComponent<TextMesh>().text;
+            startTime["pastTime"] = spendTime;
+            PhotonNetwork.player.SetCustomProperties(startTime);
+        }
 
         if(spendTime < endTime){
-            if (PhotonNetwork.player.ID == 1)
-            {
             spendTime += Time.deltaTime;
-
-
             hour = (int)spendTime / 3600;
             minute = (int)(spendTime - hour * 3600) / 60;
             second = (int)(spendTime - hour * 3600 - minute * 60);
             //timeText.GetComponent<TextMesh>().text = string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, second);
             timeText.GetComponent<Text>().text = string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, second);
-            ExitGames.Client.Photon.Hashtable startTime = new ExitGames.Client.Photon.Hashtable();
-            //startTime["time"] = timeText.GetComponent<TextMesh>().text;
-            startTime["time"] = timeText.GetComponent<Text>().text;
-            startTime["pastTime"] = spendTime;
-            PhotonNetwork.player.SetCustomProperties(startTime);
-            Debug.Log("id == 1"+spendTime);
             }
-            else
-            {
-            //timeText.GetComponent<TextMesh>().text = PhotonNetwork.playerList[0].CustomProperties["time"].ToString();
-            Debug.Log("PhotonNetwork.playerList[0]:"+PhotonNetwork.playerList[0]);
-            Debug.Log("PhotonNetwork.playerList[0]:"+PhotonNetwork.playerList[0].name);
-            Debug.Log("PhotonNetwork.playerList[0].CustomProperties:"+PhotonNetwork.playerList[0].CustomProperties);
-            timeText.GetComponent<Text>().text = PhotonNetwork.playerList[0].CustomProperties["time"].ToString();
-            spendTime = float.Parse(PhotonNetwork.playerList[0].CustomProperties["pastTime"].ToString());
-            }
-        }
         if (spendTime >= endTime && PhotonNetwork.player.ID == 1)
         {
            // PhotonNetwork.LoadLevel("gameConnect");
