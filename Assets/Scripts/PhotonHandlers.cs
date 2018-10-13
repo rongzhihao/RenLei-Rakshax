@@ -24,7 +24,7 @@ public class PhotonHandlers : MonoBehaviour {
 
 	public void joinOrCreateRoom(){
 		RoomOptions roomOptions = new RoomOptions();
-		roomOptions.MaxPlayers = 4;
+		roomOptions.MaxPlayers = 10;
 		PhotonNetwork.JoinOrCreateRoom(photonB.joinRoomInput.text, roomOptions, TypedLobby.Default);
 	}
 	public void moveScene(){
