@@ -30,7 +30,7 @@ public class bulletSlots : MonoBehaviour {
     {
 		int redBulletCount = player.GetComponent<PlayerController>().redBullet;
 		int blueBulletCount = player.GetComponent<PlayerController>().blueBullet;
-		//Debug.Log("redBulletCount:"+redBulletCount);
+		Debug.Log("redBulletCount:"+redBulletCount);
 		//Debug.Log("blueBulletCount:"+blueBulletCount);
 		if(redBulletCount < 3){
 			reloadSlots(redBulletCount, Color.red, redSlotsArray);
@@ -51,6 +51,9 @@ public class bulletSlots : MonoBehaviour {
 		}
 
 		if( blueBulletCount == 0 && randomSlot.GetComponent<SpriteRenderer>().color == Color.blue){
+			randomSlot.GetComponent<SpriteRenderer>().color = Color.white;
+		}
+		if(blueBulletCount < 3 && redBulletCount < 3){
 			randomSlot.GetComponent<SpriteRenderer>().color = Color.white;
 		}
     }
