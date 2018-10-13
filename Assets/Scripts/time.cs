@@ -17,15 +17,17 @@ public class time : MonoBehaviour
     public GameObject result;
     void Start()
     {
-        /*
-        if (PhotonNetwork.player.ID == 1)
-            spendTime = 0;
-        else
-        //Debug.Log(PhotonNetwork.playerList[0].CustomProperties["time"]);
-        {
-            spendTime = float.Parse(PhotonNetwork.playerList[0].CustomProperties["time"].ToString());
-            //Debug.Log(spendTime);
-        }*/
+        
+        if (PhotonNetwork.player.ID == 1){
+            PhotonNetwork.player.SetTeam(PunTeams.Team.red);
+        }
+        // else
+        // //Debug.Log(PhotonNetwork.playerList[0].CustomProperties["time"]);
+        // {
+        //     spendTime = float.Parse(PhotonNetwork.playerList[0].CustomProperties["time"].ToString());
+        //     //Debug.Log(spendTime);
+        // }*/
+
 
     }
 
@@ -33,9 +35,9 @@ public class time : MonoBehaviour
     void Update()
     {
 
-
-        if (PhotonNetwork.player.ID == 1 && spendTime < endTime)
-        {
+        if(spendTime < endTime){
+            if (PhotonNetwork.player.ID == 1)
+            {
             spendTime += Time.deltaTime;
 
 
@@ -49,16 +51,19 @@ public class time : MonoBehaviour
             startTime["time"] = timeText.GetComponent<Text>().text;
             startTime["pastTime"] = spendTime;
             PhotonNetwork.player.SetCustomProperties(startTime);
-
-        }
-        else
-        {
+            Debug.Log("id == 1"+spendTime);
+            }
+            else
+            {
             //timeText.GetComponent<TextMesh>().text = PhotonNetwork.playerList[0].CustomProperties["time"].ToString();
+            Debug.Log("PhotonNetwork.playerList[0]:"+PhotonNetwork.playerList[0]);
+            Debug.Log("PhotonNetwork.playerList[0]:"+PhotonNetwork.playerList[0].name);
+            Debug.Log("PhotonNetwork.playerList[0].CustomProperties:"+PhotonNetwork.playerList[0].CustomProperties);
             timeText.GetComponent<Text>().text = PhotonNetwork.playerList[0].CustomProperties["time"].ToString();
             spendTime = float.Parse(PhotonNetwork.playerList[0].CustomProperties["pastTime"].ToString());
-           // Debug.Log(spendTime);
+            }
         }
-        if (spendTime >= endTime)
+        if (spendTime >= endTime && PhotonNetwork.player.ID == 1)
         {
            // PhotonNetwork.LoadLevel("gameConnect");
             PlayerController.canMove = false;
@@ -94,8 +99,48 @@ public class time : MonoBehaviour
                 recordPanel.SetActive(true);
                 jilu.SetActive(true);
                 getResult();
+                PhotonNetwork.player.SetTeam(PunTeams.Team.blue);
             }
+        } else if ( PhotonNetwork.player.ID != 1 && PhotonNetwork.playerList[0].GetTeam() == PunTeams.Team.blue){
+            // PhotonNetwork.LoadLevel("gameConnect");
+            PlayerController.canMove = false;
+            jilu.GetComponent<Text>().text = "Player    ClothOn   ClothOff\n";
+            endGame.GetComponent<Transform>().position = new Vector3(PlayerController.playerX -7, PlayerController.playerY + 3, 100);
+            endGame.SetActive(true);
+            for (int i = 0; i < PhotonNetwork.room.PlayerCount; i++)
+            {
+                //jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].ID;
+                jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].CustomProperties["name"].ToString();
+                if (PhotonNetwork.playerList[i].GetScore() == 0)
+                {
+                    jilu.GetComponent<Text>().text += "<color=#EA464B>               Red          </color>";
+                    jilu.GetComponent<Text>().text += "<color=#EA464B>Red</color>\n";
+                }
+                if (PhotonNetwork.playerList[i].GetScore() == 1)
+                {
+                    jilu.GetComponent<Text>().text += "<color=#EA464B>               Red          </color>";
+                    jilu.GetComponent<Text>().text += "<color=#1F5ADE>Blue</color>\n";
+                }
+                if (PhotonNetwork.playerList[i].GetScore() == 2)
+                {
+                    jilu.GetComponent<Text>().text += "<color=#1F5ADE>               Blue         </color>";
+                    jilu.GetComponent<Text>().text += "<color=#EA464B>Red</color>\n";
+                }
+                if (PhotonNetwork.playerList[i].GetScore() == 3)
+                {
+                    jilu.GetComponent<Text>().text += "<color=#1F5ADE>               Blue         </color>";
+                    jilu.GetComponent<Text>().text += "<color=#1F5ADE>Blue</color>\n";
+                }
+                recordPanel.GetComponent<Transform>().position = new Vector3(PlayerController.playerX, PlayerController.playerY);
+                jilu.GetComponent<Transform>().position = new Vector3(PlayerController.playerX - 1, PlayerController.playerY + 3);
+                recordPanel.SetActive(true);
+                jilu.SetActive(true);
+                getResult();
+            }
+
+
         }
+
     }
     void getResult()
     {
