@@ -367,9 +367,9 @@ public class PlayerController : MonoBehaviour
      */
     public void AddBullet( int bulletType ) {
 
-        if( (bulletType == 0) && (redBullet < 2 || blueBullet < 3 && redBullet < 3  )){
+        if( (bulletType == 0) && (redBullet < 3 ) ){
             redBullet++;
-        }else if ( (bulletType == 1) && ( blueBullet < 2 || redBullet < 3 && blueBullet < 3) ){
+        }else if ( (bulletType == 1) && ( blueBullet < 3) ){
             blueBullet++;
         }
     }

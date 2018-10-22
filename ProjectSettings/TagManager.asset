@@ -15,6 +15,7 @@ TagManager:
   - BlueSlot
   - RandomSlot
   - Damage2
+  - Slots
   layers:
   - Default
   - TransparentFX
