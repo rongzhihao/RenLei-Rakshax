@@ -12,7 +12,7 @@ public class time : MonoBehaviour
     public GameObject jilu;
     private float spendTime;
     [SerializeField]
-    private float endTime = 90f;
+    private float endTime = 10f;
     private int hour, minute, second;
     public GameObject endGame;
     public GameObject result;

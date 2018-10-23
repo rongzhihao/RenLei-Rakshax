@@ -12046,7 +12046,7 @@ MonoBehaviour:
   timeText: {fileID: 0}
   recordPanel: {fileID: 0}
   jilu: {fileID: 0}
-  endTime: 10
+  endTime: 60
   endGame: {fileID: 417963046}
   result: {fileID: 0}
 --- !u!102 &1996887266

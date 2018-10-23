@@ -9,9 +9,11 @@ public class PhotonConnect : MonoBehaviour {
 	private GameObject sectionView1, sectionView2, sectionView3;
 
 	private void Awake(){
-
-		PhotonNetwork.ConnectUsingSettings(versionName);
-
+		if(!(PhotonNetwork.connectionState == ConnectionState.Connected)){
+			PhotonNetwork.ConnectUsingSettings(versionName);
+		}else{
+			OnConnectedToMaster();
+		}
 		Debug.Log("connecting to photon ...");
 	}
 
