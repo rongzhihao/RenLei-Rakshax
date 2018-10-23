@@ -18,16 +18,15 @@ public class endGame1 : MonoBehaviour {
 
     private void checkPhotonStatic()
     {
-         if(PhotonNetwork.connectionState == ConnectionState.Connected){
+        Debug.Log("conn:"+ (PhotonNetwork.connectionState == ConnectionState.Disconnected));
+         if(PhotonNetwork.connectionState == ConnectionState.Disconnected){
              PhotonNetwork.LoadLevel("gameConnect");
          }
     }
 
     void OnMouseUp()
     {
+        PhotonNetwork.DestroyAll();
         PhotonNetwork.Disconnect();
-       
-       
-        
     }
 }
