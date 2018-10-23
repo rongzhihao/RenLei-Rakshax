@@ -16,7 +16,8 @@ public class endGame1 : MonoBehaviour {
 	}
     void OnMouseUp()
     {
-        Debug.Log("aa");
-        PhotonNetwork.LoadLevel("gameConnect");
+        PhotonNetwork.Disconnect();
+        //PhotonNetwork.LoadLevel("gameConnect");
+        
     }
 }

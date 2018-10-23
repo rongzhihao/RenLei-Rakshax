@@ -107,6 +107,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameObject.FindGameObjectsWithTag("ExitGameButton").Length != 0){
+            return;
+        }
         if (photonView.isMine)
         {
          playerX = this.GetComponent<Transform>().position.x;

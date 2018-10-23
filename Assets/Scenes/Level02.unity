@@ -2156,7 +2156,7 @@ GameObject:
   - component: {fileID: 417963049}
   m_Layer: 0
   m_Name: endGame
-  m_TagString: Untagged
+  m_TagString: ExitGameButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5067,6 +5067,7 @@ MonoBehaviour:
   timeText: {fileID: 787782461}
   recordPanel: {fileID: 1566279319}
   jilu: {fileID: 389268249}
+  endTime: 90
   endGame: {fileID: 417963046}
   result: {fileID: 487886581}
 --- !u!1001 &792097147
@@ -12045,6 +12046,7 @@ MonoBehaviour:
   timeText: {fileID: 0}
   recordPanel: {fileID: 0}
   jilu: {fileID: 0}
+  endTime: 10
   endGame: {fileID: 417963046}
   result: {fileID: 0}
 --- !u!102 &1996887266

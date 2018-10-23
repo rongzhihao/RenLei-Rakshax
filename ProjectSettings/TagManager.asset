@@ -16,6 +16,7 @@ TagManager:
   - RandomSlot
   - Damage2
   - Slots
+  - ExitGameButton
   layers:
   - Default
   - TransparentFX

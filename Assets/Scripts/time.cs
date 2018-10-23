@@ -11,6 +11,7 @@ public class time : MonoBehaviour
     public GameObject recordPanel;
     public GameObject jilu;
     private float spendTime;
+    [SerializeField]
     private float endTime = 90f;
     private int hour, minute, second;
     public GameObject endGame;
@@ -168,5 +169,7 @@ public class time : MonoBehaviour
         
         result.GetComponent<Transform>().position = new Vector3(PlayerController.playerX - 1, PlayerController.playerY -3, 100);
         result.SetActive(true);
+
+
     }
 }
