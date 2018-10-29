@@ -291,7 +291,7 @@ public class PlayerController : MonoBehaviour
         if (horizontal > 0 && !facingRight || horizontal < 0 && facingRight)
         {
             facingRight = !facingRight;
-            transform.localScale = new Vector3(transform.localScale.x * -1, 1, 1);
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
     }
 
