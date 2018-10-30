@@ -17,6 +17,7 @@ TagManager:
   - Damage2
   - Slots
   - ExitGameButton
+  - shortAttack
   layers:
   - Default
   - TransparentFX

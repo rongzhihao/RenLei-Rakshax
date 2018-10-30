@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     public static float playerX;
     public static float playerY;
     private Vector3 selfPos;
+
+    private Quaternion selfRot;
     [SerializeField]
     private EdgeCollider2D handCollider;
 
@@ -43,9 +45,6 @@ public class PlayerController : MonoBehaviour
     public Text plName;
     public GameObject sceneCam;
     public GameObject plCam;
-    
-    [SerializeField]
-    public Rigidbody2D myRigibody;
 
     [SerializeField]
     private Transform[] groundPoints;
@@ -64,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
     //[SerializeField]
     //private float health = 30;
-    private bool onGround;
+    public bool onGround {get; set;}
 
     [SerializeField]
     protected GameObject poisonPrefab;
@@ -86,14 +85,16 @@ public class PlayerController : MonoBehaviour
     public int  blueBullet {get; set;}
 
     public Animator MyAnimator{get; private set;}
+    public Rigidbody2D MyRigibody {get; set;}
 
-
+    [SerializeField]
+    private bool hasLongAttack;
 
 
     // Use this for initialization
     void Start()
     {
-        myRigibody = GetComponent<Rigidbody2D>();
+        MyRigibody = GetComponent<Rigidbody2D>();
         MyAnimator = GetComponent<Animator>();
         
         
@@ -159,13 +160,11 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDownMobile("Fire1"))
         {
-            ShortAttack();
             shouldShootRed = true;
         }
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetButtonDownMobile("Fire2"))
         {
-            ShortAttack();
             shouldShootBlue = true;
         }
 
@@ -191,25 +190,28 @@ public class PlayerController : MonoBehaviour
             Flip(horizontal);
             onGround = IsGrounded();
             MyAnimator.SetFloat("speed", Mathf.Abs(horizontal));
-            MyAnimator.SetFloat("verticalSpeed",  myRigibody.velocity.y);
+            MyAnimator.SetFloat("verticalSpeed",  MyRigibody.velocity.y);
             
             
-            if (onGround && Jump && myRigibody.velocity.y == 0)
+            if (onGround && Jump && MyRigibody.velocity.y == 0)
             {
                 onGround = false;
-                myRigibody.AddForce(new Vector2(0, jumpForce));
+                MyRigibody.AddForce(new Vector2(0, jumpForce));
             }
 
-            if(shouldShootRed && redBullet > 0){
+            if(shouldShootRed && redBullet > 0 && hasLongAttack){
                 ShootBullet(true);
                 redBullet--;
             }
 
-            if(shouldShootBlue && blueBullet > 0){
+            if(shouldShootBlue && blueBullet > 0 && hasLongAttack){
                 ShootBullet(false);
                 blueBullet--;
             }
-
+            
+            if( (shouldShootRed || shouldShootBlue) && !hasLongAttack ){
+                ShortAttack();
+            }
 
             if (shouldSwitch)
             {
@@ -229,6 +231,7 @@ public class PlayerController : MonoBehaviour
     private void smoothNetMovement()
     {
         transform.position = Vector3.Lerp(transform.position, selfPos, Time.deltaTime * 8);
+        transform.rotation = Quaternion.Lerp(transform.rotation, selfRot, Time.deltaTime * 8);
     }
 
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -236,21 +239,25 @@ public class PlayerController : MonoBehaviour
         if (stream.isWriting)
         {
             stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
             stream.SendNext(currentCloth);
+            //stream.SendNext(this.MyAnimator);
             //stream.SendNext(health);
 
         }
         else
         {
             selfPos = (Vector3)stream.ReceiveNext();
+            selfRot = (Quaternion)stream.ReceiveNext();
             //gameObject.GetComponent<MeshRenderer>().material.color = (Color)stream.ReceiveNext();
             this.currentCloth = (int)stream.ReceiveNext();
+            //this.MyAnimator = (Animator)stream.ReceiveNext
         }
     }
 
     private bool IsGrounded()
     {
-        if (myRigibody.velocity.y <= 0)
+        if (MyRigibody.velocity.y <= 0)
         {
             foreach (Transform point in groundPoints)
             {
