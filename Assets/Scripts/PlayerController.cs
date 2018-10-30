@@ -36,8 +36,10 @@ public class PlayerController : MonoBehaviour
     public static float playerX;
     public static float playerY;
     private Vector3 selfPos;
+    [SerializeField]
+    private EdgeCollider2D handCollider;
 
-    private bool jump;
+    public bool Jump {get; set;}
     public Text plName;
     public GameObject sceneCam;
     public GameObject plCam;
@@ -83,6 +85,8 @@ public class PlayerController : MonoBehaviour
     public int redBullet {get; set;}
     public int  blueBullet {get; set;}
 
+    public Animator MyAnimator{get; private set;}
+
 
 
 
@@ -90,6 +94,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         myRigibody = GetComponent<Rigidbody2D>();
+        MyAnimator = GetComponent<Animator>();
         
         
     }
@@ -139,6 +144,7 @@ public class PlayerController : MonoBehaviour
             checkInput();
         }
         resetParameter();
+        HandleLayer();
     }
 
     private void HanldeInput()
@@ -148,16 +154,18 @@ public class PlayerController : MonoBehaviour
         // }
         if (Input.GetKeyDown(KeyCode.Space)|| Input.GetButtonDownMobile("Jump"))
         {
-            jump = true;
+            Jump = true;
         }
 
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDownMobile("Fire1"))
         {
+            ShortAttack();
             shouldShootRed = true;
         }
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetButtonDownMobile("Fire2"))
         {
+            ShortAttack();
             shouldShootBlue = true;
         }
 
@@ -177,12 +185,16 @@ public class PlayerController : MonoBehaviour
         if (canMove)
         {
             float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
             var move = new Vector3(horizontal, 0);
             transform.position += move * moveSpeed * Time.deltaTime;
             Flip(horizontal);
             onGround = IsGrounded();
-
-            if (onGround && jump && myRigibody.velocity.y == 0)
+            MyAnimator.SetFloat("speed", Mathf.Abs(horizontal));
+            MyAnimator.SetFloat("verticalSpeed",  myRigibody.velocity.y);
+            
+            
+            if (onGround && Jump && myRigibody.velocity.y == 0)
             {
                 onGround = false;
                 myRigibody.AddForce(new Vector2(0, jumpForce));
@@ -257,7 +269,7 @@ public class PlayerController : MonoBehaviour
 
     private void resetParameter()
     {
-        jump = false;
+        Jump = false;
         shouldShootRed = false;
         shouldShootBlue = false;
         shouldSwitch = false;
@@ -423,5 +435,25 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(0, 5, 0);
         }
     }
+
+    private void HandleLayer()
+	{
+		if(!onGround)
+		{
+			MyAnimator.SetLayerWeight(1,1);
+		}else
+		{
+			MyAnimator.SetLayerWeight(1,0);
+		}
+	}
+
+    public void ShortAttack(){
+		MyAnimator.SetTrigger("attack");
+	}
+
+    public void MeleeAttack()
+	{
+		handCollider.enabled = !handCollider.enabled;
+	}
 
 }
