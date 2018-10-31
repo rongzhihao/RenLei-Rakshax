@@ -9,8 +9,9 @@ public class PhotonHandlers : MonoBehaviour {
 	public PhotonButton photonB;
    
 	public GameObject mainPlayer;
-
-	private void Awake(){
+    public GameObject human;
+    public GameObject zombie;
+    private void Awake(){
 		
 		DontDestroyOnLoad(this.transform);
 		PhotonNetwork.sendRate = 280;
@@ -46,8 +47,16 @@ public class PhotonHandlers : MonoBehaviour {
 	}
 
 	private void spawnPlayer(){
-		PhotonNetwork.Instantiate(mainPlayer.name, mainPlayer.transform.position, mainPlayer.transform.rotation, 0);
-
+       
+        if (PhotonNetwork.player.ID % 2 == 1)
+        {
+            mainPlayer = human;
+        }
+        else
+        {
+            mainPlayer = zombie;
+        }
+        PhotonNetwork.Instantiate(mainPlayer.name, mainPlayer.transform.position, mainPlayer.transform.rotation, 0);
     }
     
 }

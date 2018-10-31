@@ -303,6 +303,7 @@ public class PlayerController : MonoBehaviour
             GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 0)), 0);
             bullet.GetComponent<fireBall>().initialize(Vector2.left);
         }
+        MyAnimator.SetTrigger("attack");
     }
 
     private void Flip(float horizontal)

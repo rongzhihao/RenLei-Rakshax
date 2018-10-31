@@ -1762,7 +1762,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   photonB: {fileID: 1312000968}
-  mainPlayer: {fileID: 1778336822829570, guid: 17c2146b80f464fa78769cc69ea80bfc, type: 2}
+  mainPlayer: {fileID: 0}
+  human: {fileID: 1271596176757216, guid: c20da41208b6ee24f9c09b8583df22b7, type: 2}
+  zombie: {fileID: 1778336822829570, guid: 17c2146b80f464fa78769cc69ea80bfc, type: 2}
 --- !u!4 &1825768062
 Transform:
   m_ObjectHideFlags: 0
