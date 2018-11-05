@@ -43,4 +43,14 @@ public class fireBall : MonoBehaviour {
 	{
 		this.direction = direction;
 	}
+    public void OnTriggerEnter2D(Collider2D col)
+    {
+        Debug.Log("Bullet trigger");
+        Debug.Log("photonView:" + this.GetComponent<PhotonView>().isMine);
+        if (this.GetComponent<PhotonView>().isMine)
+        {
+            PhotonNetwork.Destroy(this.GetComponent<PhotonView>().gameObject);
+
+        }
+    }
 }

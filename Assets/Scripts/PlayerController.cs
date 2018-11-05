@@ -90,7 +90,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool hasLongAttack;
 
-
+    public GameObject zombiePrefab;
+    public GameObject humanPrefab;
     // Use this for initialization
     void Start()
     {
@@ -360,7 +361,7 @@ public class PlayerController : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("sha:" + PhotonNetwork.player.ID);
-        if (other.tag == "antidote")
+        /*if (other.tag == "antidote")
         {
             TakeDamage(Color.blue);
         }
@@ -371,7 +372,35 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.tag == recoverStand)
         {
             canBeCharge = true;
+        }*/
+
+        Debug.Log("other.name="+other.name);
+        if (other.name.Contains("Poison"))
+        {
+            if (this.name.Contains("human"))
+            {
+                Debug.Log("player hit by bullet");
+                Vector3 tempPos = transform.position;
+                if (photonView.isMine)
+                {
+                    PhotonNetwork.Destroy(photonView.gameObject);
+                    PhotonNetwork.Instantiate(zombiePrefab.name, tempPos, Quaternion.identity, 0);
+                }
+            }
+            else
+            {
+                Debug.Log("zombie hit by bullet");
+                Vector3 tempPos = transform.position;
+                Debug.Log("photonView:" + this.GetComponent<PhotonView>().isMine);
+                if (photonView.isMine)
+                {
+                    Debug.Log("ismine");
+                    PhotonNetwork.Destroy(photonView.gameObject);
+                    PhotonNetwork.Instantiate(humanPrefab.name, tempPos, Quaternion.identity, 0);
+                }
+            }
         }
+
     }
 
     

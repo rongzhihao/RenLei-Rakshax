@@ -641,6 +641,9 @@ MonoBehaviour:
   antidotePrefab: {fileID: 1991891887080278, guid: cef039587a2fe48bdb7c66568c8ee308,
     type: 2}
   hasLongAttack: 0
+  zombiePrefab: {fileID: 1778336822829570}
+  humanPrefab: {fileID: 1271596176757216, guid: c20da41208b6ee24f9c09b8583df22b7,
+    type: 2}
 --- !u!114 &114551095476552452
 MonoBehaviour:
   m_ObjectHideFlags: 1
