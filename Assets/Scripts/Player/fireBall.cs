@@ -7,7 +7,7 @@ public class fireBall : MonoBehaviour {
 
 	// Use this for initialization
 	private Rigidbody2D myRigidbody;
-	private Vector2 direction;
+	private Vector2 direction = Vector2.left;
 	[SerializeField]
 	private float speed = 10f;
 	private int distance = 0;
@@ -49,7 +49,7 @@ public class fireBall : MonoBehaviour {
         Debug.Log("photonView:" + this.GetComponent<PhotonView>().isMine);
         if (this.GetComponent<PhotonView>().isMine)
         {
-            PhotonNetwork.Destroy(this.GetComponent<PhotonView>().gameObject);
+           // PhotonNetwork.Destroy(this.GetComponent<PhotonView>().gameObject);
 
         }
     }

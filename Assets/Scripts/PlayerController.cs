@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     protected GameObject antidotePrefab;
     private bool shouldSwitch = false;
-    private Color[] clothArray = { Color.red, Color.blue }; // poison and anitdote 
+    private string[] clothArray = { "HumanIdle", "ZombieIdle" }; // poison and anitdote 
     private int currentCloth = 0;
 
     public static bool canMove = true;
@@ -166,11 +166,6 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDownMobile("Fire1"))
         {
-            shouldShootRed = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetButtonDownMobile("Fire2"))
-        {
             shouldShootBlue = true;
         }
 
@@ -191,11 +186,8 @@ public class PlayerController : MonoBehaviour
         {
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
-            Debug.Log("horizontal" + horizontal);
-            Debug.Log("vertical" + vertical);
-            float angle = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
-            Debug.Log("angle" + angle);
 
+            float angle = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
 
             var move = new Vector3(horizontal, 0);
             transform.position += move * moveSpeed * Time.deltaTime;//movespeed
@@ -211,7 +203,7 @@ public class PlayerController : MonoBehaviour
                 MyRigibody.AddForce(new Vector2(0, jumpForce));
             }
 
-            if(shouldShootRed && redBullet > 0 && hasLongAttack){
+            if(shouldShootBlue && !hasLongAttack){
                 ShootBullet(true);
                 redBullet--;
             }
@@ -221,14 +213,15 @@ public class PlayerController : MonoBehaviour
                 blueBullet--;
             }
             
-            if( (shouldShootRed || shouldShootBlue) && !hasLongAttack ){
-                ShortAttack();
-            }
+            // if( (shouldShootRed || shouldShootBlue) && !hasLongAttack ){
+            //     ShortAttack();
+            // }
 
             if (shouldSwitch)
             {
                 currentCloth = (currentCloth + 1) % 2;
                 transferCloth();
+                shouldSwitch = false;
             }
 
             if (isRecovering && canBeCharge)
@@ -291,7 +284,6 @@ public class PlayerController : MonoBehaviour
         Jump = false;
         shouldShootRed = false;
         shouldShootBlue = false;
-        shouldSwitch = false;
         isRecovering = false;
     }
 
@@ -349,17 +341,29 @@ public class PlayerController : MonoBehaviour
     private void ChangeColor()
     {
         //currentCloth = (currentCloth + 1) % 2;
-        photonView.gameObject.GetComponent<MeshRenderer>().material.color = clothArray[currentCloth];
+        //photonView.gameObject.GetComponent<MeshRenderer>().material.color = clothArray[currentCloth];
+        if(clothArray[currentCloth] == humanAnimator){
+            hasLongAttack = true;
+            photonView.gameObject.GetComponent<Animator>().runtimeAnimatorController = Resources.Load(humanAnimatorPath) as RuntimeAnimatorController;
+        }else{
+            hasLongAttack = false;
+            photonView.gameObject.GetComponent<Animator>().runtimeAnimatorController = Resources.Load(zombieAnimatorPath) as RuntimeAnimatorController;
+        }
+        
     }
     private void transferCloth()
     {
         if (PhotonNetwork.player.GetScore() == 1 || PhotonNetwork.player.GetScore() == 2)
             PhotonNetwork.player.SetScore(3 - PhotonNetwork.player.GetScore());
     }
-    private void TakeDamage(string animatorPath)
+    private void TakeDamage(string animator)
     {
-        MyAnimator.runtimeAnimatorController = Resources.Load(animatorPath) as RuntimeAnimatorController;
-        //hittedColor(color);
+        if(clothArray[currentCloth] != animator)
+        {
+             Debug.Log("CHANGE");
+            currentCloth = (currentCloth + 1) % 2;
+        }
+            
     }
     private void hittedColor(Color color)
     {
@@ -387,14 +391,15 @@ public class PlayerController : MonoBehaviour
     }
     public void OnTriggerEnter2D(Collider2D other)
     {
-        
-        if (other.tag == "antidote" && (MyAnimator.runtimeAnimatorController.name.EndsWith(zombieAnimator)))
+        Debug.Log("de:"+other.name);
+        if (other.tag == "antidote" )
         {
-            TakeDamage(humanAnimatorPath);
+            TakeDamage(humanAnimator);
         }
-        else if (other.tag == "poison" &&(MyAnimator.runtimeAnimatorController.name.EndsWith(humanAnimator)))
+        else if (other.name.Contains("Poison") )
         {
-            TakeDamage(zombieAnimatorPath);
+            Debug.Log("POSION");
+            TakeDamage(zombieAnimator);
         }
         else if (other.gameObject.tag == recoverStand)
         {
@@ -464,26 +469,26 @@ public class PlayerController : MonoBehaviour
 
     private void movementCount()
     {
-        canMove = true;
-        CancelInvoke();
-        if (clothArray[0] == clothArray[1])
-        {
+        // canMove = true;
+        // CancelInvoke();
+        // if (clothArray[0] == clothArray[1])
+        // {
         
-        Vector3 bulletInitPlace = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        GameObject bulletPrefab = clothArray[0] == Color.blue ? poisonPrefab : antidotePrefab;
-        GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 180)), 0);
-        bullet.GetComponent<fireBall>().initialize(Vector2.right);
+        // Vector3 bulletInitPlace = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        // GameObject bulletPrefab = clothArray[0] == Color.blue ? poisonPrefab : antidotePrefab;
+        // GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 180)), 0);
+        // bullet.GetComponent<fireBall>().initialize(Vector2.right);
 
-            // if (clothArray[0] == Color.red)
-            // {
-            //     TakeDamage(Color.blue);
-            // }
-            // else
-            // {
-            //     TakeDamage(Color.red);
-            // }
-        }
-        Debug.Log(clothArray[0] == clothArray[1] );
+        //     // if (clothArray[0] == Color.red)
+        //     // {
+        //     //     TakeDamage(Color.blue);
+        //     // }
+        //     // else
+        //     // {
+        //     //     TakeDamage(Color.red);
+        //     // }
+        // }
+        // Debug.Log(clothArray[0] == clothArray[1] );
     }
 
     private void StartToRecovering()
