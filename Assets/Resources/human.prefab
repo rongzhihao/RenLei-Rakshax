@@ -696,6 +696,7 @@ MonoBehaviour:
   zombiePrefab: {fileID: 1778336822829570, guid: 17c2146b80f464fa78769cc69ea80bfc,
     type: 2}
   humanPrefab: {fileID: 1271596176757216}
+  animatorClip: []
 --- !u!114 &114648087911245588
 MonoBehaviour:
   m_ObjectHideFlags: 1
