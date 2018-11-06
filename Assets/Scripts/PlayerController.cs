@@ -186,6 +186,12 @@ public class PlayerController : MonoBehaviour
         {
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
+            Debug.Log("horizontal" + horizontal);
+            Debug.Log("vertical" + vertical);
+            float angle = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
+            Debug.Log("angle" + angle);
+
+
             var move = new Vector3(horizontal, 0);
             transform.position += move * moveSpeed * Time.deltaTime;
             Flip(horizontal);
@@ -291,18 +297,20 @@ public class PlayerController : MonoBehaviour
     {
 
         float offset = facingRight ? 1 : -1;
-        Vector3 bulletInitPlace = new Vector3(transform.position.x + offset, transform.position.y, transform.position.z);
+        Vector3 bulletInitPlace = new Vector3(transform.position.x + Input.GetAxis("Horizontal"), transform.position.y + Input.GetAxis("Vertical"), transform.position.z);//Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")
         GameObject bulletPrefab = isPoison ? poisonPrefab : antidotePrefab;
+        Vector2 vector2 = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
         if (facingRight)
         {
             GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 180)), 0);
-            bullet.GetComponent<fireBall>().initialize(Vector2.right);
+            
+            bullet.GetComponent<fireBall>().initialize(vector2);
         }
         else
         {
             GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 0)), 0);
-            bullet.GetComponent<fireBall>().initialize(Vector2.left);
+            bullet.GetComponent<fireBall>().initialize(vector2);
         }
         MyAnimator.SetTrigger("attack");
     }
