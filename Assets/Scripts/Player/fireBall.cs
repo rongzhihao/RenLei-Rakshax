@@ -12,7 +12,7 @@ public class fireBall : MonoBehaviour {
 	private float speed = 10f;
 	private int distance = 0;
 
-	private int maxDistance = 4;
+	private int maxDistance = 100;
 	void Start () {
 		myRigidbody = GetComponent<Rigidbody2D>();
 		//InvokeRepeating("destroyFireBall", 0.05f, 0.05f);
@@ -20,7 +20,7 @@ public class fireBall : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		myRigidbody.velocity = direction * speed; 
+		myRigidbody.velocity = direction * 10; 
 		distance += 1;
 		if(distance > maxDistance){
 			PhotonNetwork.Destroy(gameObject);

@@ -193,7 +193,7 @@ public class PlayerController : MonoBehaviour
 
 
             var move = new Vector3(horizontal, 0);
-            transform.position += move * moveSpeed * Time.deltaTime;
+            transform.position += move * moveSpeed * Time.deltaTime;//movespeed
             Flip(horizontal);
             onGround = IsGrounded();
             MyAnimator.SetFloat("speed", Mathf.Abs(horizontal));
@@ -296,22 +296,39 @@ public class PlayerController : MonoBehaviour
     public void ShootBullet(bool isPoison)
     {
 
-        float offset = facingRight ? 1 : -1;
-        Vector3 bulletInitPlace = new Vector3(transform.position.x + Input.GetAxis("Horizontal"), transform.position.y + Input.GetAxis("Vertical"), transform.position.z);//Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")
-        GameObject bulletPrefab = isPoison ? poisonPrefab : antidotePrefab;
-        Vector2 vector2 = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        float offset = facingRight ? 1.2f : -1.2f;
 
-        if (facingRight)
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        float angle = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
+
+        float offsetx = 1.2f * Mathf.Sin(angle * Mathf.PI / 180);
+        float offsety = 1.2f * Mathf.Cos(angle * Mathf.PI / 180);
+
+        /*float initx = 1.5f * Mathf.Sin(angle * Mathf.PI / 180);
+        float inity = 1.5f * Mathf.Cos(angle * Mathf.PI / 180);*/
+
+        Vector3 bulletInitPlace = new Vector3(transform.position.x + offsetx, transform.position.y + offsety, transform.position.z);//Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")
+        GameObject bulletPrefab = isPoison ? poisonPrefab : antidotePrefab;
+        Vector2 vector2 = new Vector2(offsetx, offsety);
+
+        /*if (facingRight)
         {
-            GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 180)), 0);
+            GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 0)), 0);
             
             bullet.GetComponent<fireBall>().initialize(vector2);
         }
         else
         {
-            GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 0)), 0);
+            GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, 180)), 0);
             bullet.GetComponent<fireBall>().initialize(vector2);
-        }
+        }*/
+
+        GameObject bullet = (GameObject)PhotonNetwork.Instantiate(bulletPrefab.name, bulletInitPlace, Quaternion.Euler(new Vector3(0, 0, angle)), 0);
+
+        bullet.GetComponent<fireBall>().initialize(vector2);
+
         MyAnimator.SetTrigger("attack");
     }
 
