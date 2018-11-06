@@ -620,7 +620,7 @@ MonoBehaviour:
   playerPickup: {fileID: 114884825591505476}
   devTestng: 0
   photonView: {fileID: 114255893892024712}
-  jumpForce: 1500
+  jumpForce: 1200
   handCollider: {fileID: 0}
   plName: {fileID: 114259055716808234}
   sceneCam: {fileID: 0}
@@ -637,6 +637,8 @@ MonoBehaviour:
   antidotePrefab: {fileID: 1991891887080278, guid: cef039587a2fe48bdb7c66568c8ee308,
     type: 2}
   hasLongAttack: 0
+  zombiePrefab: {fileID: 0}
+  humanPrefab: {fileID: 0}
 --- !u!114 &114871304756343960
 MonoBehaviour:
   m_ObjectHideFlags: 1

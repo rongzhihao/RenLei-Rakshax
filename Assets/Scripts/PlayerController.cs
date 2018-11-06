@@ -92,13 +92,18 @@ public class PlayerController : MonoBehaviour
 
     public GameObject zombiePrefab;
     public GameObject humanPrefab;
+
+    private string humanAnimator = "HumanIdle";
+    private string zombieAnimator = "ZombieIdle";
+
+    private string humanAnimatorPath = "Controllers/HumanIdle";
+    private string zombieAnimatorPath = "Controllers/ZombieIdle";
+
     // Use this for initialization
     void Start()
     {
         MyRigibody = GetComponent<Rigidbody2D>();
         MyAnimator = GetComponent<Animator>();
-        
-        
     }
 
     private void Awake()
@@ -351,13 +356,10 @@ public class PlayerController : MonoBehaviour
         if (PhotonNetwork.player.GetScore() == 1 || PhotonNetwork.player.GetScore() == 2)
             PhotonNetwork.player.SetScore(3 - PhotonNetwork.player.GetScore());
     }
-    private void TakeDamage(Color color)
+    private void TakeDamage(string animatorPath)
     {
-        clothArray[currentCloth] = color;
-        photonView.gameObject.GetComponent<MeshRenderer>().material.color = clothArray[currentCloth];
-        hittedColor(color);
-
-
+        MyAnimator.runtimeAnimatorController = Resources.Load(animatorPath) as RuntimeAnimatorController;
+        //hittedColor(color);
     }
     private void hittedColor(Color color)
     {
@@ -385,46 +387,46 @@ public class PlayerController : MonoBehaviour
     }
     public void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("sha:" + PhotonNetwork.player.ID);
-        /*if (other.tag == "antidote")
+        
+        if (other.tag == "antidote" && (MyAnimator.runtimeAnimatorController.name.EndsWith(zombieAnimator)))
         {
-            TakeDamage(Color.blue);
+            TakeDamage(humanAnimatorPath);
         }
-        else if (other.tag == "poison")
+        else if (other.tag == "poison" &&(MyAnimator.runtimeAnimatorController.name.EndsWith(humanAnimator)))
         {
-            TakeDamage(Color.red);
+            TakeDamage(zombieAnimatorPath);
         }
         else if (other.gameObject.tag == recoverStand)
         {
             canBeCharge = true;
-        }*/
-
-        Debug.Log("other.name="+other.name);
-        if (other.name.Contains("Poison"))
-        {
-            if (this.name.Contains("human"))
-            {
-                Debug.Log("player hit by bullet");
-                Vector3 tempPos = transform.position;
-                if (photonView.isMine)
-                {
-                    PhotonNetwork.Destroy(photonView.gameObject);
-                    PhotonNetwork.Instantiate(zombiePrefab.name, tempPos, Quaternion.identity, 0);
-                }
-            }
-            else
-            {
-                Debug.Log("zombie hit by bullet");
-                Vector3 tempPos = transform.position;
-                Debug.Log("photonView:" + this.GetComponent<PhotonView>().isMine);
-                if (photonView.isMine)
-                {
-                    Debug.Log("ismine");
-                    PhotonNetwork.Destroy(photonView.gameObject);
-                    PhotonNetwork.Instantiate(humanPrefab.name, tempPos, Quaternion.identity, 0);
-                }
-            }
         }
+
+        // Debug.Log("other.name="+other.name);
+        // if (other.name.Contains("Poison"))
+        // {
+        //     if (this.name.Contains("human"))
+        //     {
+        //         Debug.Log("player hit by bullet");
+        //         Vector3 tempPos = transform.position;
+        //         if (photonView.isMine)
+        //         {
+        //             PhotonNetwork.Destroy(photonView.gameObject);
+        //             PhotonNetwork.Instantiate(zombiePrefab.name, tempPos, Quaternion.identity, 0);
+        //         }
+        //     }
+        //     else
+        //     {
+        //         Debug.Log("zombie hit by bullet");
+        //         Vector3 tempPos = transform.position;
+        //         Debug.Log("photonView:" + this.GetComponent<PhotonView>().isMine);
+        //         if (photonView.isMine)
+        //         {
+        //             Debug.Log("ismine");
+        //             PhotonNetwork.Destroy(photonView.gameObject);
+        //             PhotonNetwork.Instantiate(humanPrefab.name, tempPos, Quaternion.identity, 0);
+        //         }
+        //     }
+        // }
 
     }
 
