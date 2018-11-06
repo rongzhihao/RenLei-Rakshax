@@ -624,7 +624,7 @@ MonoBehaviour:
   playerPickup: {fileID: 114507499426730710}
   devTestng: 0
   photonView: {fileID: 114551095476552452}
-  jumpForce: 1000
+  jumpForce: 1200
   handCollider: {fileID: 68286878454446362}
   plName: {fileID: 114801832377699092}
   sceneCam: {fileID: 0}
