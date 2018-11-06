@@ -19,9 +19,9 @@ public class SimpleController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		rb.velocity=new Vector2(Input.GetAxis("Horizontal")*velocity, rb.velocity.y);
+		rb.velocity=new Vector2(Input.GetAxis("Horizontal")*velocity, Input.GetAxis("Vertical") * velocity);//Input.GetAxis("Horizontal")*velocity   rb.velocity.y
 
-        if(grounded && Input.GetButtonDown(JumpAxis))
+        if (grounded && Input.GetButtonDown(JumpAxis))
         {
             rb.velocity = new Vector2(rb.velocity.x, 10f);
             grounded = false;
