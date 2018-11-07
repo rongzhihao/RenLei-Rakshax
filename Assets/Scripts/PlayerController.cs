@@ -303,12 +303,12 @@ public class PlayerController : MonoBehaviour
         float offsetx = 1.2f * Mathf.Sin(angle * Mathf.PI / 180);
         float offsety = 1.2f * Mathf.Cos(angle * Mathf.PI / 180);
 
-        /*float initx = 1.5f * Mathf.Sin(angle * Mathf.PI / 180);
-        float inity = 1.5f * Mathf.Cos(angle * Mathf.PI / 180);*/
+        float initx = 1.5f * Mathf.Sin(angle * Mathf.PI / 180);
+        float inity = 1.5f * Mathf.Cos(angle * Mathf.PI / 180);
 
         Vector3 bulletInitPlace = new Vector3(transform.position.x + offsetx, transform.position.y + offsety, transform.position.z);//Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")
         GameObject bulletPrefab = isPoison ? poisonPrefab : antidotePrefab;
-        Vector2 vector2 = new Vector2(offsetx, offsety);
+        Vector2 vector2 = new Vector2(initx, inity);
 
         /*if (facingRight)
         {
