@@ -8,6 +8,7 @@ public class bulletSlots : MonoBehaviour {
 
 	private GameObject[] slotsArray;
 	private GameObject player;
+	private string humanAnimator = "HumanIdle";
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag("Player"); 
@@ -25,50 +26,37 @@ public class bulletSlots : MonoBehaviour {
 
     private void checkBullet()
     {
-		int redBulletCount = player.GetComponent<PlayerController>().redBullet;
+		//int redBulletCount = player.GetComponent<PlayerController>().redBullet;
 		int blueBulletCount = player.GetComponent<PlayerController>().blueBullet;
-		UpdateSlots(0, redBulletCount, Color.red, slotsArray);
-		UpdateSlots(3, blueBulletCount, Color.blue, slotsArray);
-
-		// //Debug.Log("blueBulletCount:"+blueBulletCount);
-		// if(redBulletCount < 3){
-		// 	reloadSlots(redBulletCount, Color.red, redSlotsArray);
-		// }else{
-		// 	reloadSlots(2, Color.red, redSlotsArray);
-		// 	randomSlot.GetComponent<SpriteRenderer>().color = Color.red;
-		// }
-
-		// if(blueBulletCount < 3){
-		// 	reloadSlots(blueBulletCount, Color.blue, blueSlotsArray);
-		// }else{
-		// 	reloadSlots(2, Color.blue, blueSlotsArray);
-		// 	randomSlot.GetComponent<SpriteRenderer>().color = Color.blue;
-		// }
-
-		// if( redBulletCount == 0 && randomSlot.GetComponent<SpriteRenderer>().color == Color.red){
-		// 	randomSlot.GetComponent<SpriteRenderer>().color = Color.white;
-		// }
-
-		// if( blueBulletCount == 0 && randomSlot.GetComponent<SpriteRenderer>().color == Color.blue){
-		// 	randomSlot.GetComponent<SpriteRenderer>().color = Color.white;
-		// }
-		// if(blueBulletCount < 3 && redBulletCount < 3){
-		// 	randomSlot.GetComponent<SpriteRenderer>().color = Color.white;
-		// }
+		//UpdateSlots(0, redBulletCount, Color.red, slotsArray);
+		UpdateSlots(0, blueBulletCount, Color.blue, slotsArray);
     }
 
     private void keepSlotsAlwaysOnCamera()
     {
-		transform.position = new Vector3(player.transform.position.x - 6.2f, player.transform.position.y + 4.5f, transform.position.z);
+		if(player.GetComponent<Animator>().runtimeAnimatorController.name.Equals(humanAnimator))
+		{
+			foreach( GameObject slot in slotsArray ){
+				slot.SetActive(true);
+			}
+			transform.position = new Vector3(player.transform.position.x - 6.2f, player.transform.position.y + 4.5f, transform.position.z);
+		}
+		else
+		{
+			foreach( GameObject slot in slotsArray ){
+				slot.SetActive(false);
+			}
+		}
+		
     }
 
 	private void UpdateSlots( int start, int end, Color color, GameObject[] slots ){
 		int slot = start ;
-		for(; slot < start + end; slot++){
+		for(; slot < end; slot++){
 			slots[slot].GetComponent<SpriteRenderer>().color = color;
 		}
 	
-		for(; slot < start + (slots.Length / 2); slot++){
+		for(; slot < slots.Length; slot++){
 			slots[slot].GetComponent<SpriteRenderer>().color = Color.white;
 		}
 	}

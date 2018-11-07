@@ -5,6 +5,7 @@ using UnityEngine;
 public class PickUpItem : MonoBehaviour {
 
 	private bool canBePickUp =false;
+	private string humanAnimator = "HumanIdle";
 	// Use this for initialization
 	void Start () {
 		
@@ -15,8 +16,8 @@ public class PickUpItem : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
-		Debug.Log(other.tag);
-		if(other.tag == "Player"){
+		Debug.Log(other.gameObject.GetComponent<Animator>().runtimeAnimatorController.name.Equals(humanAnimator));
+		if(other.tag == "Player" && other.gameObject.GetComponent<Animator>().runtimeAnimatorController.name.Equals(humanAnimator)){
 			if(gameObject.tag == "RedSlot"){
 				other.gameObject.GetComponent<PlayerController>().AddBullet(0);
 			}else{

@@ -7,10 +7,7 @@ using UnityEngine.SceneManagement;
 public class PhotonHandlers : MonoBehaviour {
 
 	public PhotonButton photonB;
-   
 	public GameObject mainPlayer;
-    public GameObject human;
-    public GameObject zombie;
     private void Awake(){
 		
 		DontDestroyOnLoad(this.transform);
@@ -48,15 +45,16 @@ public class PhotonHandlers : MonoBehaviour {
 
 	private void spawnPlayer(){
        
-        if (PhotonNetwork.player.ID % 2 == 1)
+        PhotonNetwork.Instantiate(mainPlayer.name, mainPlayer.transform.position, mainPlayer.transform.rotation, 0);
+
+		//change the init charator skin according to player ID. 
+		if (PhotonNetwork.player.ID % 2 == 1)
         {
-            mainPlayer = human;
+            PlayerController.Instance.currentCloth = 1;
         }
         else
         {
-            mainPlayer = zombie;
+            PlayerController.Instance.currentCloth = 0;
         }
-        PhotonNetwork.Instantiate(mainPlayer.name, mainPlayer.transform.position, mainPlayer.transform.rotation, 0);
     }
-    
 }

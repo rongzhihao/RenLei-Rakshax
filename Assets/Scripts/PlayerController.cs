@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
     protected GameObject antidotePrefab;
     private bool shouldSwitch = false;
     private string[] clothArray = { "HumanIdle", "ZombieIdle" }; // poison and anitdote 
-    private int currentCloth = 0;
+    public int currentCloth = 0;
 
     public static bool canMove = true;
 
@@ -396,7 +396,7 @@ public class PlayerController : MonoBehaviour
         {
             TakeDamage(humanAnimator);
         }
-        else if (other.name.Contains("Poison") )
+        else if (other.name.Contains("Poison") || other.tag == "posion" ||  other.name.Contains("handAttack"))
         {
             Debug.Log("POSION");
             TakeDamage(zombieAnimator);

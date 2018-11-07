@@ -12,7 +12,7 @@ public class fireBall : MonoBehaviour {
 	private float speed = 10f;
 	private int distance = 0;
 
-	private int maxDistance = 100;
+	public float maxDistance = 100;
 	void Start () {
 		myRigidbody = GetComponent<Rigidbody2D>();
 		//InvokeRepeating("destroyFireBall", 0.05f, 0.05f);
