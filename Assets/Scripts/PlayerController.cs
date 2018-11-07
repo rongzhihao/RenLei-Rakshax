@@ -306,6 +306,15 @@ public class PlayerController : MonoBehaviour
         float initx = 1.5f * Mathf.Sin(angle * Mathf.PI / 180);
         float inity = 1.5f * Mathf.Cos(angle * Mathf.PI / 180);
 
+        if (horizontal == 0 && vertical == 0)
+        {
+            offsetx = facingRight ? 1.2f : -1.2f;
+            offsety = 0;
+            initx = facingRight ? 1.5f : -1.5f;
+            inity = 0;
+            angle = 0;
+        }
+
         Vector3 bulletInitPlace = new Vector3(transform.position.x + offsetx, transform.position.y + offsety, transform.position.z);//Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")
         GameObject bulletPrefab = isPoison ? poisonPrefab : antidotePrefab;
         Vector2 vector2 = new Vector2(initx, inity);
