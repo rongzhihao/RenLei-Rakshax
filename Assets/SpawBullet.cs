@@ -28,7 +28,7 @@ public class SpawBullet : MonoBehaviour {
 		int count = bulletPlaces.Length;
 		foreach(GameObject place in  bulletPlaces){
 			if(count % 2 == 0){
-				SpawSingleBullet(place.transform, redBullet);
+			//	SpawSingleBullet(place.transform, redBullet);
 			}else{
 				SpawSingleBullet(place.transform, blueBullet);
 			}
