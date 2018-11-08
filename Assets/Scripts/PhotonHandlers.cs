@@ -44,8 +44,12 @@ public class PhotonHandlers : MonoBehaviour {
 	}
 
 	private void spawnPlayer(){
-       
-        PhotonNetwork.Instantiate(mainPlayer.name, mainPlayer.transform.position, mainPlayer.transform.rotation, 0);
+        Debug.Log("GameObject.Find(PlayerLoaction)="+GameObject.Find("Level"));
+        GameObject PlayerPlace = GameObject.Find("Level").transform.Find("PlayerLocation").gameObject;
+        System.Random ran = new System.Random();
+        Transform t = PlayerPlace.transform.GetChild(ran.Next(0, 4));
+        Vector3 playerInitPlace = new Vector3(t.position.x, t.position.y + 2f, t.position.z);
+        PhotonNetwork.Instantiate(mainPlayer.name, playerInitPlace, mainPlayer.transform.rotation, 0);
 
 		//change the init charator skin according to player ID. 
 		if (PhotonNetwork.player.ID % 2 == 0)
