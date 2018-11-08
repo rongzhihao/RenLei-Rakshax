@@ -18,6 +18,9 @@ TagManager:
   - Slots
   - ExitGameButton
   - shortAttack
+  - Saw
+  - Portal
+  - Death
   layers:
   - Default
   - TransparentFX
@@ -61,6 +64,9 @@ TagManager:
   - name: BulletSlot Layer1
     uniqueID: 3996179067
     locked: 0
+  - name: boudaries
+    uniqueID: 386629349
+    locked: 0
   - name: record
     uniqueID: 1725611691
     locked: 0
@@ -69,7 +75,4 @@ TagManager:
     locked: 0
   - name: time
     uniqueID: 1504422297
-    locked: 0
-  - name: boudaries
-    uniqueID: 386629349
     locked: 0

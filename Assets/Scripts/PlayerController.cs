@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour
     {
         MyRigibody = GetComponent<Rigidbody2D>();
         MyAnimator = GetComponent<Animator>();
+        
     }
 
     private void Awake()
@@ -119,7 +120,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameObject.FindGameObjectsWithTag("ExitGameButton").Length != 0){
+        //Debug.Log(verti)
+        if (GameObject.FindGameObjectsWithTag("ExitGameButton").Length != 0){
             return;
         }
         if (photonView.isMine)
@@ -362,8 +364,9 @@ public class PlayerController : MonoBehaviour
     }
     private void transferCloth()
     {
-        if (PhotonNetwork.player.GetScore() == 1 || PhotonNetwork.player.GetScore() == 2)
-            PhotonNetwork.player.SetScore(3 - PhotonNetwork.player.GetScore());
+        //if (PhotonNetwork.player.GetScore() == 1 || PhotonNetwork.player.GetScore() == 2)
+        //  PhotonNetwork.player.SetScore(3 - PhotonNetwork.player.GetScore());
+        PhotonNetwork.player.SetScore(1 - PhotonNetwork.player.GetScore());
     }
     private void TakeDamage(string animator)
     {
@@ -372,8 +375,16 @@ public class PlayerController : MonoBehaviour
              Debug.Log("CHANGE");
             currentCloth = (currentCloth + 1) % 2;
         }
-            
+        if (animator == "HumanIdle")
+        {
+            PhotonNetwork.player.SetScore(1);
+        }
+        else
+        {
+            PhotonNetwork.player.SetScore(0);
+        }
     }
+    /*
     private void hittedColor(Color color)
     {
         int nowColor = PhotonNetwork.player.GetScore();
@@ -398,6 +409,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    */
     public void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("de:"+other.name);

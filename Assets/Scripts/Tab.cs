@@ -19,7 +19,14 @@ public class Tab : MonoBehaviour
         //clothOn.Add(Color.red);
         //clothOff.Add(Color.blue);
         //Debug.Log(clothOn);
-        PhotonNetwork.player.SetScore(1);
+        if (PhotonNetwork.player.ID % 2 == 1)
+        {
+            PhotonNetwork.player.SetScore(1);
+        }
+        else
+        {
+            PhotonNetwork.player.SetScore(0);
+        }
         Debug.Log(PhotonNetwork.player.ID);
     }
 
@@ -36,23 +43,39 @@ public class Tab : MonoBehaviour
             //jilu.GetComponent<Transform>().position = new Vector3(PlayerController.playerX-2, PlayerController.playerY+1);
             recordPanel.GetComponent<Transform>().position = new Vector3(PlayerController.playerX, PlayerController.playerY);
             jilu.GetComponent<Transform>().position = new Vector3(PlayerController.playerX - 1, PlayerController.playerY+3);
-            jilu.GetComponent<Text>().text = "Player    ClothOn   ClothOff\n";
+            jilu.GetComponent<Text>().text = "Player              Status\n";
 
             for (int i = 0; i < PhotonNetwork.room.PlayerCount; i++)
             {
                 //jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].ID;
+                /*
+                for (int j = 0; j<15- PhotonNetwork.playerList[i].CustomProperties["name"].ToString().Length; j++)
+                {
+                    jilu.GetComponent<Text>().text += " ";
+                }*/
                 jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].CustomProperties["name"].ToString();
                 Debug.Log(PhotonNetwork.playerList[i].CustomProperties["name"].ToString());
                 if (PhotonNetwork.playerList[i].GetScore() == 0)
                 {
-                    jilu.GetComponent<Text>().text += "<color=#EA464B>               Red          </color>";
-                    jilu.GetComponent<Text>().text += "<color=#EA464B>Red</color>\n";
+                    jilu.GetComponent<Text>().text += "<color=#1F5ADE>";
+                    for (int j=0;j<35;j++)
+                    {
+                        jilu.GetComponent<Text>().text += " ";
+                    }
+                    jilu.GetComponent<Text>().text += "Zombie</color>\n";
+                   // jilu.GetComponent<Text>().text += "<color=#EA464B>Red</color>\n";
                 }
                 if (PhotonNetwork.playerList[i].GetScore() == 1)
                 {
-                    jilu.GetComponent<Text>().text += "<color=#EA464B>               Red          </color>";
-                    jilu.GetComponent<Text>().text += "<color=#1F5ADE>Blue</color>\n";
+                    jilu.GetComponent<Text>().text += "<color=#EA464B>";
+                    for (int j = 0; j < 35; j++)
+                    {
+                        jilu.GetComponent<Text>().text += " ";
+                    }
+                    jilu.GetComponent<Text>().text += "Human          </color>\n";
+                    //jilu.GetComponent<Text>().text += "<color=#1F5ADE>Blue</color>\n";
                 }
+                /*
                 if (PhotonNetwork.playerList[i].GetScore() == 2)
                 {
                     jilu.GetComponent<Text>().text += "<color=#1F5ADE>               Blue         </color>";
@@ -62,7 +85,7 @@ public class Tab : MonoBehaviour
                 {
                     jilu.GetComponent<Text>().text += "<color=#1F5ADE>               Blue         </color>";
                     jilu.GetComponent<Text>().text += "<color=#1F5ADE>Blue</color>\n";
-                }
+                }*/
                 /*
                 else
                     jilu.GetComponent<TextMesh>().text += "<color=#1F5ADE>               Blue         </color>";

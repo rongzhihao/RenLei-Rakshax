@@ -11,6 +11,8 @@ public class BulletMove : MonoBehaviour
     // Use this for initialization
     //public GameObject bullet;
     public float damage=2;
+    private float cc = 1f;
+    public int ff = 0;
     void Start()
     {
 

@@ -29,7 +29,7 @@ public class bulletSlots : MonoBehaviour {
 		//int redBulletCount = player.GetComponent<PlayerController>().redBullet;
 		int blueBulletCount = player.GetComponent<PlayerController>().blueBullet;
 		//UpdateSlots(0, redBulletCount, Color.red, slotsArray);
-		UpdateSlots(0, blueBulletCount, Color.blue, slotsArray);
+		UpdateSlots(0, blueBulletCount, Color.gray, slotsArray);
     }
 
     private void keepSlotsAlwaysOnCamera()

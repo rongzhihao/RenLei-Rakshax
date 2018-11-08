@@ -48,7 +48,7 @@ public class PhotonHandlers : MonoBehaviour {
         PhotonNetwork.Instantiate(mainPlayer.name, mainPlayer.transform.position, mainPlayer.transform.rotation, 0);
 
 		//change the init charator skin according to player ID. 
-		if (PhotonNetwork.player.ID % 2 == 1)
+		if (PhotonNetwork.player.ID % 2 == 0)
         {
             PlayerController.Instance.currentCloth = 1;
         }
