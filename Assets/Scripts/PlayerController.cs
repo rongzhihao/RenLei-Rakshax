@@ -122,14 +122,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (photonView.isMine)
+        {
+            playerX = this.GetComponent<Transform>().position.x;
+            playerY = this.GetComponent<Transform>().position.y;
+        }
+
         //Debug.Log(verti)
         if (GameObject.FindGameObjectsWithTag("ExitGameButton").Length != 0){
             return;
-        }
-        if (photonView.isMine)
-        {
-         playerX = this.GetComponent<Transform>().position.x;
-        playerY = this.GetComponent<Transform>().position.y;
         }
            
         HanldeInput();
