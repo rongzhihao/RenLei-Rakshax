@@ -11,8 +11,9 @@ public class time : MonoBehaviour
     public GameObject recordPanel;
     public GameObject jilu;
     private float spendTime;
-    [SerializeField]
-    private float end = 10f;
+    private float end = 500f;
+   // [SerializeField]
+    
     private int hour, minute, second;
     public GameObject endGame;
     public GameObject result;
@@ -23,9 +24,10 @@ public class time : MonoBehaviour
             PhotonNetwork.player.SetTeam(PunTeams.Team.red);
             spendTime = 0;
         }else{
-            spendTime = float.Parse(PhotonNetwork.playerList[0].CustomProperties["pastTime"].ToString());
-
+            //spendTime = float.Parse(PhotonNetwork.playerList[0].CustomProperties["pastTime"].ToString());
+            spendTime = float.Parse(PhotonNetwork.room.CustomProperties["pastTime"].ToString());
         }
+        Debug.Log("id:" + PhotonNetwork.player.ID);
         Debug.Log("time:"+spendTime);
         // else
         // //Debug.Log(PhotonNetwork.playerList[0].CustomProperties["time"]);
@@ -40,26 +42,29 @@ public class time : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("now:" + spendTime);
+        // Debug.Log("now:" + PhotonNetwork.playerList[0].CustomProperties["startTime"]);
+ 
         
-
         if(spendTime < end){
             
             spendTime += Time.deltaTime;
             if (PhotonNetwork.player.ID == 1)
             {
                 ExitGames.Client.Photon.Hashtable startTime = new ExitGames.Client.Photon.Hashtable();
-                //startTime["time"] = timeText.GetComponent<TextMesh>().text;
+               // startTime["time"] = timeText.GetComponent<TextMesh>().text;
                 startTime["pastTime"] = spendTime;
-                PhotonNetwork.player.SetCustomProperties(startTime);
-            }
-            hour = (int)spendTime / 3600;
-            minute = (int)(spendTime - hour * 3600) / 60;
-            second = (int)(spendTime - hour * 3600 - minute * 60);
-            //timeText.GetComponent<TextMesh>().text = string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, second);
-            timeText.GetComponent<Text>().text = string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, second);
-            }
-        if (spendTime >= end && PhotonNetwork.player.ID == 1)
+                //PhotonNetwork.player.SetCustomProperties(startTime);
+                PhotonNetwork.room.SetCustomProperties(startTime);
+                // PhotonNetwork.playerList[0].CustomProperties["startTime"] = spendTime;
+             }
+                hour = (int)spendTime / 3600;
+                minute = (int)(spendTime - hour * 3600) / 60;
+                second = (int)(spendTime - hour * 3600 - minute * 60);
+                //timeText.GetComponent<TextMesh>().text = string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, second);
+                timeText.GetComponent<Text>().text = string.Format("{0:D2}:{1:D2}:{2:D2}", hour, minute, second);
+            
+        }
+        if (spendTime >= end)
         {
            // PhotonNetwork.LoadLevel("gameConnect");
             PlayerController.canMove = false;
@@ -88,7 +93,10 @@ public class time : MonoBehaviour
                 getResult();
                 PhotonNetwork.player.SetTeam(PunTeams.Team.blue);
             }
-        } else if ( (PhotonNetwork.player.ID != 1 && PhotonNetwork.playerList[0].GetTeam() == PunTeams.Team.blue) || spendTime >= end){
+        }
+        /*
+        else if ( (PhotonNetwork.player.ID != 1 && PhotonNetwork.playerList[0].GetTeam() == PunTeams.Team.blue) || spendTime >= end)
+        {
             // PhotonNetwork.LoadLevel("gameConnect");
             PlayerController.canMove = false;
             jilu.GetComponent<Text>().text = "Player              Status\n";
@@ -117,7 +125,7 @@ public class time : MonoBehaviour
             }
 
 
-        }
+        }*/
 
     }
     void getResult()

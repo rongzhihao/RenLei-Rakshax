@@ -19,7 +19,7 @@ public class Tab : MonoBehaviour
         //clothOn.Add(Color.red);
         //clothOff.Add(Color.blue);
         //Debug.Log(clothOn);
-        if (PhotonNetwork.player.ID % 2 == 1)
+        if (PhotonHandlers.isHuman)
         {
             PhotonNetwork.player.SetScore(1);
         }
