@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     public bool devTestng = false;
     public PhotonView photonView;
-    public static float moveSpeed = 6f;
+    public float moveSpeed = 6f;
     public float jumpForce = 800f;
     public static float playerX;
     public static float playerY;
@@ -89,6 +89,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private bool hasLongAttack;
+    private float humanSpeed = 6f;
+    public float zombieSpeed = 10f;
 
     public GameObject zombiePrefab;
     public GameObject humanPrefab;
@@ -356,9 +358,11 @@ public class PlayerController : MonoBehaviour
         //photonView.gameObject.GetComponent<MeshRenderer>().material.color = clothArray[currentCloth];
         if(clothArray[currentCloth] == humanAnimator){
             hasLongAttack = true;
+            moveSpeed = humanSpeed;
             photonView.gameObject.GetComponent<Animator>().runtimeAnimatorController = Resources.Load(humanAnimatorPath) as RuntimeAnimatorController;
         }else{
             hasLongAttack = false;
+            moveSpeed = zombieSpeed;
             photonView.gameObject.GetComponent<Animator>().runtimeAnimatorController = Resources.Load(zombieAnimatorPath) as RuntimeAnimatorController;
         }
         
