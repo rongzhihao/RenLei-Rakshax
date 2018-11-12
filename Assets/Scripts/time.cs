@@ -11,7 +11,7 @@ public class time : MonoBehaviour
     public GameObject recordPanel;
     public GameObject jilu;
     private float spendTime;
-    private float end = 500f;
+    public float end = 500f;
    // [SerializeField]
     
     private int hour, minute, second;
