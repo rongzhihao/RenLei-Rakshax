@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private bool hasLongAttack;
-    private float humanSpeed = 6f;
+    public float humanSpeed = 6f;
     public float zombieSpeed = 10f;
 
     public GameObject zombiePrefab;
