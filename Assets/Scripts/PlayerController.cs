@@ -7,19 +7,19 @@ public class PlayerController : MonoBehaviour
 {
     private static PlayerController instance;
 
-	public static PlayerController Instance
-	{
-		get{
-			if(instance == null)
-			{
-				instance = GameObject.FindObjectOfType<PlayerController>();
-			}
-           
-			return instance;
-		}
-	}
+    public static PlayerController Instance
+    {
+        get {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<PlayerController>();
+            }
 
-    
+            return instance;
+        }
+    }
+
+
     /*
      * GET ACCESS TO PlayerPickup SCRIPT
      * After shoot, please call "shootBlueBullet" or "shootRedBullet" to update the display status of slots
@@ -28,10 +28,13 @@ public class PlayerController : MonoBehaviour
     public PlayerPickup playerPickup;
 
 
-
+    private float stayTomb = 0;
+    private float stayHouse = 0;
+    private bool humanAdd = false;
+    private bool zombieAdd = false;
     public bool devTestng = false;
     public PhotonView photonView;
-    public  float moveSpeed = 6f;
+    public float moveSpeed = 6f;
     public float jumpForce = 800f;
     public static float playerX;
     public static float playerY;
@@ -41,7 +44,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private EdgeCollider2D handCollider;
 
-    public bool Jump {get; set;}
+    public bool Jump { get; set; }
     public Text plName;
     public GameObject sceneCam;
     public GameObject plCam;
@@ -63,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     //[SerializeField]
     //private float health = 30;
-    public bool onGround {get; set;}
+    public bool onGround { get; set; }
 
     [SerializeField]
     protected GameObject poisonPrefab;
@@ -81,11 +84,11 @@ public class PlayerController : MonoBehaviour
 
     private bool canBeCharge = false;
 
-    public int redBullet {get; set;}
-    public int  blueBullet {get; set;}
+    public int redBullet { get; set; }
+    public int blueBullet { get; set; }
 
-    public Animator MyAnimator{get; private set;}
-    public Rigidbody2D MyRigibody {get; set;}
+    public Animator MyAnimator { get; private set; }
+    public Rigidbody2D MyRigibody { get; set; }
 
     [SerializeField]
     private bool hasLongAttack;
@@ -106,7 +109,7 @@ public class PlayerController : MonoBehaviour
     {
         MyRigibody = GetComponent<Rigidbody2D>();
         MyAnimator = GetComponent<Animator>();
-        
+
     }
 
     private void Awake()
@@ -127,12 +130,36 @@ public class PlayerController : MonoBehaviour
             playerX = this.GetComponent<Transform>().position.x;
             playerY = this.GetComponent<Transform>().position.y;
         }
-
+        
         //Debug.Log(verti)
-        if (GameObject.FindGameObjectsWithTag("ExitGameButton").Length != 0){
+        if (GameObject.FindGameObjectsWithTag("ExitGameButton").Length != 0) {
             return;
         }
-           
+        if (humanAdd)
+        {
+            stayHouse += Time.deltaTime;
+            
+        }
+        else
+        {
+            stayHouse = 0;
+        }
+        if (zombieAdd)
+        {
+            stayTomb += Time.deltaTime;
+        }
+        else
+        {
+            stayTomb = 0;
+        }
+        if (stayHouse >= 3)
+        {
+            TakeDamage(humanAnimator);
+        }
+        if (stayTomb >= 3)
+        {
+            TakeDamage(zombieAnimator);
+        }
         HanldeInput();
         ResetLocation();
         ChangeColor();
@@ -164,7 +191,7 @@ public class PlayerController : MonoBehaviour
         // if(Input.GetKeyDown(KeyCode.Q)){
         // 	//ShortAttack();
         // }
-        if (Input.GetKeyDown(KeyCode.Space)|| Input.GetButtonDownMobile("Jump"))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDownMobile("Jump"))
         {
             Jump = true;
             onGround = false;
@@ -201,24 +228,24 @@ public class PlayerController : MonoBehaviour
             Flip(horizontal);
             onGround = IsGrounded();
             MyAnimator.SetFloat("speed", Mathf.Abs(horizontal));
-            MyAnimator.SetFloat("verticalSpeed",  MyRigibody.velocity.y);
+            MyAnimator.SetFloat("verticalSpeed", MyRigibody.velocity.y);
 
-             
+
             if (onGround && Jump && MyRigibody.velocity.y == 0)
             {
-              
+
             }
 
-            if(shouldShootBlue && !hasLongAttack){
+            if (shouldShootBlue && !hasLongAttack) {
                 ShootBullet(true);
                 redBullet--;
             }
 
-            if(shouldShootBlue && blueBullet > 0 && hasLongAttack){
+            if (shouldShootBlue && blueBullet > 0 && hasLongAttack) {
                 ShootBullet(false);
                 blueBullet--;
             }
-            
+
             // if( (shouldShootRed || shouldShootBlue) && !hasLongAttack ){
             //     ShortAttack();
             // }
@@ -233,7 +260,7 @@ public class PlayerController : MonoBehaviour
             if (isRecovering && canBeCharge)
             {
                 Debug.Log(isRecovering);
-               Debug.Log(canBeCharge);
+                Debug.Log(canBeCharge);
                 StartToRecovering();
             }
         }
@@ -357,16 +384,16 @@ public class PlayerController : MonoBehaviour
     {
         //currentCloth = (currentCloth + 1) % 2;
         //photonView.gameObject.GetComponent<MeshRenderer>().material.color = clothArray[currentCloth];
-        if(clothArray[currentCloth] == humanAnimator){
+        if (clothArray[currentCloth] == humanAnimator) {
             hasLongAttack = true;
             moveSpeed = humanSpeed;
             photonView.gameObject.GetComponent<Animator>().runtimeAnimatorController = Resources.Load(humanAnimatorPath) as RuntimeAnimatorController;
-        }else{
+        } else {
             hasLongAttack = false;
             moveSpeed = zombieSpeed;
             photonView.gameObject.GetComponent<Animator>().runtimeAnimatorController = Resources.Load(zombieAnimatorPath) as RuntimeAnimatorController;
         }
-        
+
     }
     private void transferCloth()
     {
@@ -376,16 +403,16 @@ public class PlayerController : MonoBehaviour
     }
     private void TakeDamage(string animator)
     {
-        if(clothArray[currentCloth] != animator)
+        if (clothArray[currentCloth] != animator)
         {
-             Debug.Log("CHANGE");
+            Debug.Log("CHANGE");
             currentCloth = (currentCloth + 1) % 2;
         }
-        if (animator == "HumanIdle")
+        if (animator == "HumanIdle" && photonView.isMine)
         {
             PhotonNetwork.player.SetScore(1);
         }
-        else
+        if (animator == "ZombieIdle" && photonView.isMine)
         {
             PhotonNetwork.player.SetScore(0);
         }
@@ -416,14 +443,24 @@ public class PlayerController : MonoBehaviour
         }
     }
     */
+  
     public void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("de:"+other.name);
+        Debug.Log("de:" + other.tag);
+        if (other.name == "ToHuman")
+        {
+            humanAdd = true;
+     
+        }
+        if (other.name == "ToZombie")
+        {
+            zombieAdd = true;
+        }
         if (other.tag == "antidote" )
         {
             TakeDamage(humanAnimator);
         }
-        else if (other.name.Contains("Poison") || other.tag == "posion" ||  other.name.Contains("handAttack"))
+        else if (other.name.Contains("Poison") || other.tag == "posion" || other.name.Contains("handAttack"))
         {
             Debug.Log("POSION");
             TakeDamage(zombieAnimator);
@@ -469,6 +506,16 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == recoverStand)
         {
             canBeCharge = false; 
+        }
+        if (other.name == "ToHuman")
+        {
+            //TakeDamage(humanAnimator);
+        
+            humanAdd = false;
+        }
+        if (other.name == "ToZombie")
+        {
+            zombieAdd = false;
         }
     }
 
