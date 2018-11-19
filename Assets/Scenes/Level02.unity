@@ -5898,7 +5898,7 @@ MonoBehaviour:
   timeText: {fileID: 787782461}
   recordPanel: {fileID: 1566279319}
   jilu: {fileID: 389268249}
-  end: 500
+  end: 270
   endGame: {fileID: 417963046}
   result: {fileID: 487886581}
 --- !u!1001 &792097147
@@ -7493,7 +7493,7 @@ MonoBehaviour:
   - {fileID: 317490152}
   - {fileID: 1595828437}
   - {fileID: 903313156}
-  second: 5
+  second: 20
   bullet: {fileID: 1948173721989084, guid: 9b183e547c6e1544a8d0c622b64745d2, type: 2}
 --- !u!4 &993542545
 Transform:
