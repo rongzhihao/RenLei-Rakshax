@@ -47,18 +47,20 @@ public class Tab : MonoBehaviour
           
                 for (int i = 0; i < PhotonNetwork.room.PlayerCount; i++)
                 {
-                    //jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].ID;
-                    /*
-                    for (int j = 0; j<15- PhotonNetwork.playerList[i].CustomProperties["name"].ToString().Length; j++)
-                    {
-                        jilu.GetComponent<Text>().text += " ";
-                    }*/
-                    jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].CustomProperties["name"].ToString();
-                    Debug.Log(PhotonNetwork.playerList[i].CustomProperties["name"].ToString());
+                //jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].ID;
+                /*
+                for (int j = 0; j<15- PhotonNetwork.playerList[i].CustomProperties["name"].ToString().Length; j++)
+                {
+                    jilu.GetComponent<Text>().text += " ";
+                }*/
+                
                     if (PhotonNetwork.playerList[i].GetScore() == 0)
                     {
-                        jilu.GetComponent<Text>().text += "<color=#1F5ADE>";
-                        for (int j = 0; j < 35; j++)
+                    jilu.GetComponent<Text>().text += "    ";
+                    jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].CustomProperties["name"].ToString();
+                    Debug.Log(PhotonNetwork.playerList[i].CustomProperties["name"].ToString());
+                    jilu.GetComponent<Text>().text += "<color=#1F5ADE>";
+                        for (int j = 0; j < 18; j++)
                         {
                             jilu.GetComponent<Text>().text += " ";
                         }
@@ -67,8 +69,13 @@ public class Tab : MonoBehaviour
                     }
                     if (PhotonNetwork.playerList[i].GetScore() == 1)
                     {
-                        jilu.GetComponent<Text>().text += "<color=#EA464B>";
-                        for (int j = 0; j < 35; j++)
+                    jilu.GetComponent<Text>().text += "          ";
+                    jilu.GetComponent<Text>().text += PhotonNetwork.playerList[i].CustomProperties["name"].ToString();
+                    Debug.Log(PhotonNetwork.playerList[i].CustomProperties["name"].ToString());
+
+
+                    jilu.GetComponent<Text>().text += "<color=#EA464B>";
+                        for (int j = 0; j < 20; j++)
                         {
                             jilu.GetComponent<Text>().text += " ";
                         }
