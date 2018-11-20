@@ -377,6 +377,8 @@ public class PlayerController : MonoBehaviour
         {
             facingRight = !facingRight;
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            GameObject nameText = GameObject.Find("Name").gameObject;
+            nameText.transform.localScale = new Vector3(nameText.transform.localScale.x * -1, nameText.transform.localScale.y, nameText.transform.localScale.z);
         }
     }
 
