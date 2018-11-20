@@ -194,8 +194,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDownMobile("Jump"))
         {
             Jump = true;
-            onGround = false;
-            MyRigibody.AddForce(new Vector2(0, jumpForce));
+            // onGround = false;
+            // MyRigibody.AddForce(new Vector2(0, jumpForce));
         }
 
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDownMobile("Fire1"))
@@ -233,7 +233,7 @@ public class PlayerController : MonoBehaviour
 
             if (onGround && Jump && MyRigibody.velocity.y == 0)
             {
-
+                MyRigibody.AddForce(new Vector2(0, jumpForce));
             }
 
             if (shouldShootBlue && !hasLongAttack) {
