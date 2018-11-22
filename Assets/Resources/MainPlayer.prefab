@@ -575,7 +575,7 @@ MonoBehaviour:
   devTestng: 0
   photonView: {fileID: 114551095476552452}
   moveSpeed: 6
-  jumpForce: 1200
+  jumpForce: 1400
   handCollider: {fileID: 0}
   plName: {fileID: 114801832377699092}
   sceneCam: {fileID: 0}
@@ -593,7 +593,7 @@ MonoBehaviour:
     type: 2}
   currentCloth: 0
   hasLongAttack: 0
-  humanSpeed: 4
+  humanSpeed: 6
   zombieSpeed: 8
   zombiePrefab: {fileID: 1778336822829570}
   humanPrefab: {fileID: 1271596176757216, guid: c20da41208b6ee24f9c09b8583df22b7,

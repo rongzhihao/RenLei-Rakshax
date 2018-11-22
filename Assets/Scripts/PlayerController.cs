@@ -206,7 +206,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDownMobile("Fire3"))
         {
-            shouldSwitch = true;
+           // shouldSwitch = true;
         }
 
         if (Input.GetKeyDown(KeyCode.T))
