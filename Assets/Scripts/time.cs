@@ -130,6 +130,8 @@ public class time : MonoBehaviour
                 //jilu.GetComponent<TextMesh>().text += clothOn[i].ToString();
                 //jilu.GetComponent<TextMesh>().text += clothOff[i].ToString();
             }
+            recordPanel.GetComponent<Transform>().position = new Vector3(PlayerController.playerX, PlayerController.playerY);
+            jilu.GetComponent<Transform>().position = new Vector3(PlayerController.playerX - 1, PlayerController.playerY + 3);
             getResult();
             jilu.SetActive(true);
             recordPanel.SetActive(true);

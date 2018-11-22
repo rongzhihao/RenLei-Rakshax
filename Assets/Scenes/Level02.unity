@@ -5798,7 +5798,7 @@ MonoBehaviour:
   recordPanel: {fileID: 1566279319}
   result: {fileID: 487886581}
   jilu: {fileID: 389268249}
-  end: 5
+  end: 270
   endGame: {fileID: 417963046}
 --- !u!1001 &792097147
 Prefab:
