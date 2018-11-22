@@ -575,7 +575,7 @@ MonoBehaviour:
   devTestng: 0
   photonView: {fileID: 114551095476552452}
   moveSpeed: 6
-  jumpForce: 1400
+  jumpForce: 1500
   handCollider: {fileID: 0}
   plName: {fileID: 114801832377699092}
   sceneCam: {fileID: 0}
