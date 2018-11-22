@@ -2117,7 +2117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &389268250
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5796,10 +5796,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText: {fileID: 787782461}
   recordPanel: {fileID: 1566279319}
-  jilu: {fileID: 389268249}
-  end: 270
-  endGame: {fileID: 417963046}
   result: {fileID: 487886581}
+  jilu: {fileID: 389268249}
+  end: 5
+  endGame: {fileID: 417963046}
 --- !u!1001 &792097147
 Prefab:
   m_ObjectHideFlags: 0
@@ -15755,10 +15755,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText: {fileID: 0}
   recordPanel: {fileID: 0}
+  result: {fileID: 0}
   jilu: {fileID: 0}
   end: 500
   endGame: {fileID: 417963046}
-  result: {fileID: 0}
 --- !u!102 &1996887266
 TextMesh:
   serializedVersion: 3

@@ -9,6 +9,7 @@ public class time : MonoBehaviour
     // Use this for initialization
     public GameObject timeText;
     public GameObject recordPanel;
+    public GameObject result;
     public GameObject jilu;
     private float spendTime;
     public float end = 500f;
@@ -16,7 +17,7 @@ public class time : MonoBehaviour
     
     private int hour, minute, second;
     public GameObject endGame;
-    public GameObject result;
+    //public GameObject result;
     void Start()
     {
         
@@ -129,8 +130,10 @@ public class time : MonoBehaviour
                 //jilu.GetComponent<TextMesh>().text += clothOn[i].ToString();
                 //jilu.GetComponent<TextMesh>().text += clothOff[i].ToString();
             }
+            getResult();
             jilu.SetActive(true);
             recordPanel.SetActive(true);
+          //  result.SetActive(true);
         }
         /*
         else if ( (PhotonNetwork.player.ID != 1 && PhotonNetwork.playerList[0].GetTeam() == PunTeams.Team.blue) || spendTime >= end)
@@ -168,6 +171,7 @@ public class time : MonoBehaviour
     }
     void getResult()
     {
+        Debug.Log("jieshule");
         int red = 0;
         int blue = 0;
         for (int i = 0; i < PhotonNetwork.room.PlayerCount; i++)
